@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18px;
+  background-color: #213a57;
+}
+label {
+  color: rgb(0, 0, 0);
+}
+.wrapper {
+  margin-top: 100px;
+}
+.payStackWrapper {
+  display: none;
+}
+.processingWrapper {
+  margin-top: 100px;
+  display: none;
+}
+.processedWrapper {
+  display: none;
+}
+.confirm {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.paymentcardImg {
+  height: 40px;
+}
