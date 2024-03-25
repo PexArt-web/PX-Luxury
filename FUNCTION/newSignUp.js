@@ -59,6 +59,17 @@ validPassword.addEventListener("blur", () => {
   }
 });
 
+const takePhoto = document.querySelector('.take')
+takePhoto.addEventListener('click',()=>{
+let profileImage = document.getElementById('profileImage')
+profileImage.setAttribute('capture','user')
+})
+const chooseFromFolder = document.querySelector('.choose')
+chooseFromFolder.addEventListener('click',()=>{
+  let profileImage = document.getElementById('profileImage')
+  profileImage.removeAttribute('capture')
+})
+
 const signUp = document.getElementById("signUp");
 signUp.addEventListener("submit", async (e) => {
   e.preventDefault();
