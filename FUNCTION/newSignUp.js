@@ -124,7 +124,7 @@ signUp.addEventListener("submit", async (e) => {
     }
   } finally {
     if (pattern.test(password) == true) {
-      window.location.href = "../HTML/index.html";
+      window.location.href = "../index.html";
     }
     signUpBTN.disabled = false;
     signUpBTN.innerHTML = `
