@@ -128,10 +128,10 @@ signUp.addEventListener("submit", async (e) => {
   } catch (error) {
     if (error.message === `Firebase: Error (auth/email-already-in-use).`) {
       const accountExisted = document.querySelector(".accountExisted");
-      accountExisted.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      accountExisted.innerHTML = prompt(`<div class="alert alert-warning alert-dismissible fade show" role="alert">
          <strong>An Account with this Email already Exist</strong>
          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-       </div>`;
+       </div>`);
     }
   } finally {
     if (pattern.test(password) == true) {
