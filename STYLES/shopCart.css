@@ -40,7 +40,7 @@ li select, #addToCart{
   }
 }
 .img-fluid {
-  height: 12rem;
+  height: 18rem;
 }
 #addToCart {
   position: absolute;
@@ -119,6 +119,10 @@ select option{
 #scrollCanvas {
   overflow: auto;
   max-height: 90vh;
+}
+.profileCanvas{
+  overflow: auto;
+  max-height: 100vh;
 }
 .bounce-in-top {
   -webkit-animation: bounce-in-top 1.1s both;

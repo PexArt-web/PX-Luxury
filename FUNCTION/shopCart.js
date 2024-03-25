@@ -1454,7 +1454,7 @@ function productDisplay() {
             <div class="row gy-2 gx-3 align-items-center">
             <div class="col-auto">
             <label>QTY :</label>
-              <input type="number" class="form-control" id="autoSizingInput" value = 1  id ="quantityVal${product.id}" style="width:55px;">
+              <input type="number" class="form-control" value = 1  id ="quantityVal${product.id}" style="width:55px;">
             </div>
           </div>
             
