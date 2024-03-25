@@ -16,9 +16,6 @@ label,
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 17px;
 }
-#firstName::placeholder {
-  color: rgb(255, 0, 0);
-}
 #signUp {
   background: rgba(0, 0, 0, 0.5);
 }
@@ -37,14 +34,7 @@ label,
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 .form-label {
-  font-size: 22px;
-}
-label,
-#firstName::placeholder,
-#lastName::placeholder {
-  color: rgba(0, 0, 0);
-  font-size: 18px;
-  font-weight: 500;
+  /* font-size: 22px; */
 }
 .error-message {
   font-size: 18px;
