@@ -29,8 +29,18 @@ li select, #addToCart{
 .editIcon {
   gap: 120px;
 }
+@media only screen and (min-width: 300px) {
+  .mobileSearchform{
+    display: grid;
+  }
+}
+@media only screen and (min-width:1024px) {
+  .mobileSearchform{
+    display: flex;
+  }
+}
 .img-fluid {
-  height: 25rem;
+  height: 12rem;
 }
 #addToCart {
   position: absolute;

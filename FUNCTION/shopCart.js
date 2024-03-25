@@ -1448,14 +1448,18 @@ function productDisplay() {
         <div class="card h-100" >
           <img src="${product.image}" class="img-fluid" alt="..." onclick="discription(${product.id})">
           <div class="card-body">
-            <h5 class="card-title">${product.title}</h5>
+            <h5 class="card-title">${product.title.slice(0,50)}</h5>
             <h5 class="card-title mt-2 d-flex align-items-center">${product.rating} &nbsp ${product.ratingId}</h5>
             <div class=" mt-3 d-flex gap-2 align-items-center" id="qty">
+            <div class="row gy-2 gx-3 align-items-center">
+            <div class="col-auto">
             <label>QTY :</label>
-            <input type="number" class="form-control text-center form-controls mt-2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-            id ="quantityVal${product.id}" value = '1'
-            >
+              <input type="number" class="form-control" id="autoSizingInput" value = 1  id ="quantityVal${product.id}" style="width:55px;">
             </div>
+          </div>
+            
+            </div>
+            
             <div class="card-footer"></div>
             <h5 class="card-text "id="price">$${product.price}</h5>
             <div class="card-footer"></div>
