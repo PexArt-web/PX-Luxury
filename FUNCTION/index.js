@@ -37,7 +37,7 @@ signIn.addEventListener("click", (e) => {
 </svg>
   </div>
    <div class="d-grid gap-2">
-  <button class="btn btn-success googled mb-3" type="button"><span><img src="../media/google_log-removebg-preview.png" alt="" height="40vh" width="40vw"></span>
+  <button class="btn btn-success googled mb-3" type="button"><span><img src="./media/google_log-removebg-preview.png" alt="" height="40vh" width="40vw"></span>
     Sign In with Google
   </button>
 </div>
@@ -90,7 +90,7 @@ signIn.addEventListener("click", (e) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        window.location.href = "../HTML/shopCart.html";
+        window.location.href = "./HTML/shopCart.html";
       })
       .catch((error) => {});
   });
@@ -133,7 +133,7 @@ signIn.addEventListener("click", (e) => {
       );
 
       if (signInTask.user.emailVerified == true) {
-        window.location.href = "../HTML/shopCart.html";
+        window.location.href = "./HTML/shopCart.html";
       } else {
         alert.innerHTML = "";
         alert.innerHTML = `
@@ -189,7 +189,7 @@ signIn.addEventListener("click", (e) => {
 const signUpBtn = document.getElementById("signUp");
 
 signUpBtn.addEventListener("click", () => {
-  window.location.href = "../HTML/signUp.html";
+  window.location.href = "./HTML/signUp.html";
 });
 
 //
