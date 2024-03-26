@@ -139,7 +139,7 @@ select option{
 }
 .profileCanvas{
   overflow: auto;
-  max-height: 100vh;
+  max-height: 112vh;
 }
 .bounce-in-top {
   -webkit-animation: bounce-in-top 1.1s both;
