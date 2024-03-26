@@ -1448,8 +1448,8 @@ function productDisplay() {
         <div class="card h-100" >
           <img src="${product.image}" class="img-fluid" alt="..." onclick="discription(${product.id})">
           <div class="card-body">
-            <h5 class="card-title">${product.title.slice(0,50)}</h5>
-            <h5 class="card-title mt-2 d-flex align-items-center">${product.rating} &nbsp ${product.ratingId}</h5>
+            <h5 class="card-title "style="height:18vh; overflow:hidden;" >${product.title}</h5>
+            <h5 class="card-title mt-3 align-items-center cardRating">${product.rating} &nbsp ${product.ratingId}</h5>
             <div class=" mt-3 d-flex gap-2 align-items-center" id="qty">
             <div class="row gy-2 gx-3 align-items-center">
             <div class="col-auto">
@@ -1815,7 +1815,7 @@ function displayCartProduct() {
   cartShow.innerHTML = "";
   cart.forEach((elem, index) => {
     cartShow.innerHTML += `
-    <div class="card-body d-flex align-items-center gap-4 justify-content-between shadow-md mt-1 ">
+    <div class="card-body align-items-center gap-1  shadow-md mt-1 cartbody">
     <img src="${elem.image}" class="img-thumbnail" alt="..." id="cartImg">
     <p class="text-md-center" id="cartTitle">${elem.title.slice()}</p>
     <div class="text-center">
