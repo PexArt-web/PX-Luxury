@@ -195,7 +195,7 @@ const signedOut = document.getElementById("signOut");
 signedOut.addEventListener("click", async () => {
   try {
     signOut(auth).then(() => {
-      window.location.href = "../HTML/index.html";
+      window.location.href = "../index.html";
     });
   } catch (error) {}
 });

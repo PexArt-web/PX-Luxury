@@ -37,7 +37,7 @@ resetPassword.addEventListener("click", async (e) => {
         let okVerify = document.getElementById("okVerify");
 
         okVerify.addEventListener("click", () => {
-          window.location.href = "../HTML/index.html";
+          window.location.href = "../index.html";
         });
       })
       .catch((error) => {});
@@ -49,7 +49,7 @@ resetPassword.addEventListener("click", async (e) => {
 
 let backHome = document.getElementById("backHome");
 backHome.addEventListener("click", () => {
-  window.location.href = "../HTML/index.html";
+  window.location.href = "../index.html";
 });
 
 const signUp = document.getElementById("signUp");
