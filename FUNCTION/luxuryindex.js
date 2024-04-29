@@ -137,7 +137,7 @@ firstDisplay.forEach((display) => {
 
 const signUpBtn = document.querySelector('.signUp')
 signUpBtn.addEventListener('click',()=>{
-  window.location.href = '../HTML/luxurysignup.html'
+  window.location.href = './HTML/luxurysignup.html'
 })
 
 const eyeOpen = document.querySelector('.eyeOpen')
