@@ -70,7 +70,7 @@ signInForm.addEventListener("submit", async (e) => {
     const signInTask = await signInWithEmailAndPassword(auth, email, password);
 
     if (signInTask.user.emailVerified == true) {
-      window.location.href = "../HTML/shoppingcart.html";
+      window.location.href = "./HTML/shoppingcart.html";
     } else {
       const alert = document.querySelector(".alert");
       alert.innerHTML = "";
