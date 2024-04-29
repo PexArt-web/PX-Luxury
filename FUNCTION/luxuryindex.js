@@ -135,10 +135,6 @@ firstDisplay.forEach((display) => {
    `;
 });
 
-const signUpBtn = document.querySelector('.signUp')
-signUpBtn.addEventListener('click',()=>{
-  window.location.href = './HTML/luxurysignup.html'
-})
 
 const eyeOpen = document.querySelector('.eyeOpen')
 const eyeClose = document.querySelector('.eyeClose')
@@ -155,4 +151,8 @@ eyeClose.addEventListener('click',()=>{
   password.setAttribute('type','password')
   eyeClose.style.display = 'none'
   eyeOpen.style.display = 'block'
+})
+const signUpBtn = document.querySelector('.signUp')
+signUpBtn.addEventListener('click',()=>{
+  window.location.href = './HTML/luxurypayment.html'
 })
