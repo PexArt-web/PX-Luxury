@@ -152,7 +152,3 @@ eyeClose.addEventListener('click',()=>{
   eyeClose.style.display = 'none'
   eyeOpen.style.display = 'block'
 })
-const signUpBtn = document.querySelector('.signUp')
-signUpBtn.addEventListener('click',()=>{
-  window.location.href = './HTML/luxurysignup.html'
-})

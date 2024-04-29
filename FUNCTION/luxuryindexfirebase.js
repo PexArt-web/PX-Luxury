@@ -121,3 +121,8 @@ signInForm.addEventListener("submit", async (e) => {
     signInPasswordandEmailBTN.innerHTML = `Sign In`;
   }
 });
+
+const signUp = document.querySelector('.signUp')
+signUp.addEventListener('click',()=>{
+  window.location.href = "./HTML/luxurysignup.html"
+})
