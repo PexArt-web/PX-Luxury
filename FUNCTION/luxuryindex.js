@@ -154,5 +154,5 @@ eyeClose.addEventListener('click',()=>{
 })
 const signUpBtn = document.querySelector('.signUp')
 signUpBtn.addEventListener('click',()=>{
-  window.location.href = './HTML/luxurypayment.html'
+  window.location.href = './HTML/luxurysignup.html'
 })
