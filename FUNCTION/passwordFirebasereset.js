@@ -29,16 +29,12 @@ resetPassword.addEventListener("click", async (e) => {
   try {
     const passwordReset = await sendPasswordResetEmail(auth, email)
       .then((email) => {
-        const verify_sent = document.getElementById("verify_sent");
-        verify_sent.innerHTML = `<div class="card card-body shadow-lg text-center">
-     <h5>An email has been sent, Please check Your Email to reset Your password</h5> 
-     <div class="btn btn-success" id="okVerify"><h5>OK</h5></div>
-      </div>`;
-        let okVerify = document.getElementById("okVerify");
-
-        okVerify.addEventListener("click", () => {
-          window.location.href = "../index.html";
-        });
+        const verify_sent = document.querySelector(".resetEmailAlert");
+        verify_sent.innerHTML = `<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+        An email has been sent, Please check Your Email to reset Your password
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`
+    
       })
       .catch((error) => {});
   } catch (error) {
@@ -54,5 +50,5 @@ backHome.addEventListener("click", () => {
 
 const signUp = document.getElementById("signUp");
 signUp.addEventListener("click", () => {
-  window.location.href = "../HTML/signUp.html";
+  window.location.href = "../HTML/luxurysignup.html";
 });

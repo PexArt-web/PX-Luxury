@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+header h4{
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 710;
+}
+header {
+  /* background-color: rgb(7, 128, 128); */
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  animation-name: head;
+  animation-duration: 3s;
+}
+@keyframes head {
+  0% {
+    left: 600px;
+  }
+
+  100% {
+    left: 0px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .carousel img {
+    height: 60vh;
+    width: 20vw;
+  }
+}
+@media only screen and (min-width: 1060px) {
+  .carousel-each {
+    display: flex;
+  }
+}
+.signinWrapper{
+  display: none;
+}
+del{
+  color: #ff0000;
+}
+.footImg{
+  height: 50vh;
+}
+.signUp{
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 500;
+  font-size: 17px;
+  transition: all 0.2s;
+  animation: bn13bouncy 5s infinite linear;
+  position: relative;
+}
+.signIn{
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 500;
+  font-size: 17px;
+}
+@keyframes bn13bouncy {
+  0% {
+    top: 0em;
+  }
+  40% {
+    top: 0em;
+  }
+  43% {
+    top: -0.9em;
+  }
+  46% {
+    top: 0em;
+  }
+  48% {
+    top: -0.4em;
+  }
+  50% {
+    top: 0em;
+  }
+  100% {
+    top: 0em;
+  }
+}
+.carousel {
+  animation-name: first;
+  animation-duration: 3s;
+  position: relative;
+  line-height: 170%;
+  /* font-size: 120%; */
+}
+@keyframes first {
+  0% {
+    top: -200px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+.passwordWrapper{
+  position: relative;
+}
+.eyeOpen, .eyeClose{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+footer a{
+  cursor: pointer;
+}

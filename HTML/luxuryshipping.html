@@ -10,10 +10,15 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../STYLES/payment.css" />
+    <link rel="stylesheet" href="../STYLES/luxuryshipping.css" />
   </head>
-  <body>
-    <div class="card p-3 container mt-3 bg-secondary text-body-light">
+  <body class="slide-in-right">
+    <div class="card p-3 container mt-1 bg-secondary text-body-light">
+       <!-- connection_error -->
+       <div class="connection_error">
+       
+       </div>
+       <!--  -->
       <form class="row g-3" id="paymentForm">
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Email</label>
@@ -80,14 +85,16 @@
             type="text"
             class="form-control"
             id="inputState"
-            placeholder=""
+            placeholder="Enter your State"
             required
           />
         </div>
 
         <div class="col-md-4">
           <label for="inputCity" class="form-label">City</label>
-          <input type="text" class="form-control" id="inputCity" required />
+          <input type="text" class="form-control" id="inputCity" 
+          placeholder="Enter your City"
+          required />
         </div>
 
         <div class="col-md-2">
@@ -98,11 +105,12 @@
             id="inputZip"
             required
             oninput="validateZip(event)"
+            placeholder="Enter Your Zip Code"
           />
           <p class="errorMessage text-light"></p>
         </div>
 
-        <div class="card m-auto mt-4 p-3 deliverytype">
+        <div class="card m-auto p-3 deliverytype">
           <table class="table" id="list-group-item">
             <thead>
               <tr>
@@ -117,7 +125,7 @@
         <div class="col-12">
           <div class="d-grid gap-2">
             <button
-              class="btn btn-dark text-body-light"
+              class="btn btn-dark text-light"
               type="submit"
               id="contBTN"
             >
@@ -127,9 +135,9 @@
         </div>
       </form>
     </div>
-    <script src="../FUNCTION/payment.js"></script>
+    <script src="../FUNCTION/luxuryshipping.js"></script>
 
-    <script type="module" src="../FUNCTION/paymentFirebase.js"></script>
+    <script type="module" src="../FUNCTION/luxuryshippingfirebase.js"></script>
   </body>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

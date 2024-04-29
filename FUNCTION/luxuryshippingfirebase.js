@@ -1,22 +1,22 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import {
   getAuth,
   onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 import {
   getFirestore,
   setDoc,
   doc,
   collection,
   getDoc,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 const firebaseConfig = {
-  apiKey: "AIzaSyAlaJM-VlVbuu4P8bLYJueEycgbQGsKFXE",
-  authDomain: "avifarms-38607.firebaseapp.com",
-  projectId: "avifarms-38607",
-  storageBucket: "avifarms-38607.appspot.com",
-  messagingSenderId: "867675622454",
-  appId: "1:867675622454:web:18760e520884d0902f9c97",
+  apiKey: "AIzaSyDoL0BI-a7Y5TiHzwaWbjwgBKahpV7azpU",
+  authDomain: "px-luxury-289ba.firebaseapp.com",
+  projectId: "px-luxury-289ba",
+  storageBucket: "px-luxury-289ba.appspot.com",
+  messagingSenderId: "1091968351878",
+  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07"
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
@@ -35,10 +35,21 @@ onAuthStateChanged(auth, async (user) => {
       const getNewDoc = await getDoc(docRef, "profileDetails");
       if (getNewDoc.exists()) {
         email.value = getNewDoc.data().email;
-        fName.value = getNewDoc.data().firstName.toUpperCase();
-        lName.value = getNewDoc.data().lastName.toUpperCase();
+        fName.value = getNewDoc.data().firstname.toUpperCase();
+        lName.value = getNewDoc.data().lastname.toUpperCase();
       }
-    } catch (error) {}
+    } catch (error) {
+      if(error.message === `Firebase: Error (auth/network-request-failed).`){
+        const ConnectionError = document.querySelector('.connection_error')
+        ConnectionError.innerHTML = "";
+        ConnectionError.innerHTML = `
+          <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+          <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          `;
+      }
+    }
 
     const submitForm = document.getElementById("paymentForm");
     submitForm.addEventListener("submit", async (e) => {
@@ -73,6 +84,17 @@ onAuthStateChanged(auth, async (user) => {
           shipFee,
         });
       } catch (error) {
+        console.log(error);
+        if(error.message == `Firebase: Error (auth/network-request-failed).`){
+          const ConnectionError = document.querySelector('.connection_error')
+          ConnectionError.innerHTML = "";
+          ConnectionError.innerHTML = `
+            <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+            <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            `;
+        }
       } finally {
         contBTN.disable = false;
         contBTN.innerHTML = "Continue";
@@ -81,3 +103,4 @@ onAuthStateChanged(auth, async (user) => {
     });
   }
 });
+
