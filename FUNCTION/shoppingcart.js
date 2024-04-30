@@ -1379,7 +1379,7 @@ checkOut.addEventListener('click',()=>{
   const emptyCartAlert = document.querySelector('.emptycartalert')  
   if (cart.length !== 0) {
     localStorage.setItem('totalPrice', calculateTotalPrice())
-    window.location.href = "../HTML/luxurypayment.html";
+    window.location.href = "../HTML/luxuryshipping.html";
   }else{
     emptyCartAlert.innerHTML = ''
     emptyCartAlert.innerHTML = `

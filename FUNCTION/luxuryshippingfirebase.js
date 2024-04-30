@@ -98,7 +98,7 @@ onAuthStateChanged(auth, async (user) => {
       } finally {
         contBTN.disable = false;
         contBTN.innerHTML = "Continue";
-        window.location.href = "../HTML/cardPayment.html";
+        window.location.href = "../HTML/luxurypayment.html";
       }
     });
   }
