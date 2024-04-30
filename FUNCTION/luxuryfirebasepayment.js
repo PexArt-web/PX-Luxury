@@ -38,7 +38,6 @@ onAuthStateChanged(auth, async (user) => {
       const getNewDoc = await getDoc(docRef, "profileDetails");
 
       if (getNewDoc.exists()) {
-        console.log(getNewDoc.data());
         email.value = getNewDoc.data().email;
         paymentcardname.value = `${getNewDoc.data().firstname} ${
           getNewDoc.data().lastname
@@ -69,7 +68,6 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 const userEmail = document.querySelector(".stackemail");
-console.log(userEmail.value, "stack email");
 const stackAmount = document.querySelector(".stackAmount");
 stackAmount.value = Math.round(localStorage.getItem("totalAmount"));
 const payStack = document.querySelector(".payStack");

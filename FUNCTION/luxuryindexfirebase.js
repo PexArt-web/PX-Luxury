@@ -19,6 +19,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const initSignInBtn = document.querySelector(".signIn");
+const cartLogo = document.querySelector('.bi-cart3')
 const signInForm = document.querySelector("form");
 
 const signinWrapper = document.querySelector(".signinWrapper");
@@ -26,12 +27,14 @@ initSignInBtn.addEventListener("click", (e) => {
   e.preventDefault();
   signinWrapper.style.display = "block";
   initSignInBtn.style.display = "none";
+  cartLogo.style.display = 'none'
 });
 
 const closeSignIn = document.querySelector(".closeSignInbox");
 closeSignIn.addEventListener("click", () => {
   signinWrapper.style.display = "none";
   initSignInBtn.style.display = "block";
+  cartLogo.style.display = 'block'
 });
 
 //
@@ -39,7 +42,6 @@ closeSignIn.addEventListener("click", () => {
 const signInwithGoogleBTN = document.querySelector(".googleBtn");
 signInwithGoogleBTN.addEventListener("click", async (e) => {
   e.preventDefault();
-  alert("signing in with google");
   const provider = new GoogleAuthProvider();
   const provide = await signInWithPopup(auth, provider)
     .then((result) => {
@@ -56,11 +58,8 @@ signInwithGoogleBTN.addEventListener("click", async (e) => {
 
 signInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  alert("hello");
   const email = document.querySelector(".email").value;
-  console.log(email);
   const password = document.querySelector(".password").value;
-  console.log(password);
   const signInPasswordandEmailBTN = document.querySelector(".signInBtn");
   signInPasswordandEmailBTN.disabled = true;
   signInPasswordandEmailBTN.innerHTML = `<div class="spinner-border text-success" role="status" id="spinnner">

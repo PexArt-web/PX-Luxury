@@ -95,9 +95,7 @@ try {
   const file = document.getElementById('profileImage').files[0]
   const uploadProfileImageTask = await uploadBytesResumable(imageRef, file).then((snapshot)=>{
     getDownloadURL(snapshot.ref).then((downloadURL)=>{
-      console.log('file at', downloadURL);
     })
-
   })
   
 

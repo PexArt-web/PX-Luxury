@@ -1277,6 +1277,7 @@ discription = (id) =>{
         <div class="col-md-8">
           <div class="card-body pb-5">
             <h5 class="card-title">${clickedEl.title}</h5>
+            <ul class='price text-start '><li>USD ${clickedEl.price}</li></ul>
             <p class="card-text">${clickedEl.discription}</p>
             <p class="card-text"><small class="text-center d-grid justify-content-center"><button type="button" class="btn btn-dark"
             onclick="addtoCart(${clickedEl.id})"
@@ -1310,8 +1311,6 @@ addtoCart = (id) =>{
     if(cart.some((cartItem)=> cartItem.id === elem.id)){
     }else if (!cart.some((cartItem)=> cartItem === elem.id)) {
       cart.push(elem)
-      alert(`Added to Cart`)
-      alert(elem.id)
       const cartLength = document.querySelector('.cartLength')
       cartLength.innerHTML = cart.length
     }
@@ -1341,7 +1340,7 @@ displayCartProduct = () =>{
     cartBody.innerHTML = ''
     cart.forEach((ele,index)=>{
       cartBody.innerHTML +=`
-      <div class="card-body d-flex justify-content-center align-items-center gap-2">
+      <div class="mb-2 p-2 d-flex justify-content-center align-items-center gap-1">
       <img src="${ele.image}" class = "img-fluid" alt=""  style="width:7rem;">
       <p>${ele.title.slice(0, 25)}...</p>
       <p>$${ele.price}</p>
@@ -1367,7 +1366,6 @@ deleteCart = (index) => {
 
 const emptyCart = document.querySelector('.emptyCart')
 emptyCart.addEventListener('click',()=>{
-  alert('hello')
   cart = []
   const cartLength = document.querySelector('.cartLength')
   cartLength.innerHTML = cart.length
@@ -1378,17 +1376,25 @@ emptyCart.addEventListener('click',()=>{
 
 const checkOut = document.querySelector('.checkOut')
 checkOut.addEventListener('click',()=>{
+  const emptyCartAlert = document.querySelector('.emptycartalert')  
   if (cart.length !== 0) {
     localStorage.setItem('totalPrice', calculateTotalPrice())
     window.location.href = "../HTML/luxurypayment.html";
   }else{
-    alert('cart is empty')
+    emptyCartAlert.innerHTML = ''
+    emptyCartAlert.innerHTML = `
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <strong>Hello! Your cart is empty</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    `
+    setTimeout(()=>{
+      emptyCartAlert.innerHTML = ''
+    },3000)
   }
 })
 
 function cate(ev) {
-  alert(ev.target.innerHTML)
-
   const showProduct = document.querySelector(".products");
   showProduct.innerHTML = ''
   const filtered = product.filter((filteredProduct)=> filteredProduct.category === ev.target.innerHTML)

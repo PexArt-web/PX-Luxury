@@ -47,7 +47,6 @@ onAuthStateChanged(auth,async(user) => {
   const imageRef = ref(userRef, 'profile-image.jpg')
   try {
     getDownloadURL(imageRef).then((url)=>{
-      console.log('profileUrl@', url );
       const userImage = document.querySelector('.userimage')
       userImage.innerHTML =`<div class="text-center">
       <img src="${url}" class="rounded" alt="...">
@@ -57,7 +56,6 @@ onAuthStateChanged(auth,async(user) => {
     if (docSnap.exists()) {
       const welcomeName = document.querySelector('.welcomeName')
       welcomeName.innerHTML = `Welcome ${docSnap.data().firstname},`
-      console.log('data', docSnap.data(), docSnap.data().firstname);
       const usersEmail = document.querySelector('.email')
       usersEmail.value = `${docSnap.data().email}`
       const firstname = document.querySelector('.firstname')

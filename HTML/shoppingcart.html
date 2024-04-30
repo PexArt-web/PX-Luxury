@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../STYLES/shoppingcart.css" />
   </head>
   <body class="">
-    <div class="container-fluid card " >
+    <div class="container-fluid card" >
       <!-- /start of shop body/ -->
       <header>
             <form class="d-flex searchform" role="search">
@@ -85,8 +85,8 @@
             </div>
           </div>
         </nav>
-        <div class="card-body">
-          <div class="row row-cols-5 row-cols-md-4 g-4 products d-flex justify-content-center">
+        <div class="card">
+          <div class="row row-cols-5 row-cols-md-4 g-4 products d-flex justify-content-center mt-1 mb-1">
 
             
           </div>
@@ -135,10 +135,12 @@
         <!-- /cart/ -->
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="emptycartalert"></div>
   <div class="offcanvas-header" >
     <h5 id="offcanvasRightLabel">Your Luxury Cart</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
+  
   <div class="offcanvas-body" id="scrollCanvas">
     <div class="card cartProductDisplay">
       <!--  -->
@@ -191,7 +193,7 @@
     value = '${docSnap.data().lastname}'
     type="text" class="form-control lastname" id="formGroupExampleInput2" placeholder="Another input placeholder" disabled>
   </div>
-  <button class="btn btn-dark">Save</button>
+  <button class="btn btn-dark" disabled>Save</button>
 </form>
              </div>
             </div>

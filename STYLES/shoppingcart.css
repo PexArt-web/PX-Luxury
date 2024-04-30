@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Georgia, "Times New Roman", Times, serif;
    
 }
 /* body{
@@ -55,6 +56,7 @@ marquee span{
     }
     .products{
        gap: 15px;
+       margin-right: 25px;
     }
     .addTocart{
         position: absolute;
