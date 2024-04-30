@@ -98,6 +98,8 @@ signInForm.addEventListener("submit", async (e) => {
       })
     }
   } catch (error) {
+    console.log(error);
+    const alert = document.querySelector(".alert");
     if (error.message === `Firebase: Error (auth/invalid-credential).`){
       alert.innerHTML = "";
         alert.innerHTML = `

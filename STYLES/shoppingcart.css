@@ -31,6 +31,9 @@ marquee span{
     top: 13%;
     max-height: 70vh;
 }
+.letterhead::first-letter{
+    color: #ff0000;
+}
 /* .checkAndEmptyBTN{
     position: absolute;
     bottom: 0;

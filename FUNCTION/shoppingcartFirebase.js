@@ -45,28 +45,76 @@ onAuthStateChanged(auth,async(user) => {
   )
   const userRef = ref(storage, `images/${user.uid}`)
   const imageRef = ref(userRef, 'profile-image.jpg')
-  try {
-    getDownloadURL(imageRef).then((url)=>{
-      const userImage = document.querySelector('.userimage')
-      userImage.innerHTML =`<div class="text-center">
-      <img src="${url}" class="rounded" alt="...">
-    </div>`
-    })
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      const welcomeName = document.querySelector('.welcomeName')
-      welcomeName.innerHTML = `Welcome ${docSnap.data().firstname},`
-      const usersEmail = document.querySelector('.email')
-      usersEmail.value = `${docSnap.data().email}`
-      const firstname = document.querySelector('.firstname')
-      firstname.value = `${docSnap.data().firstname}`
-      const lastname = document.querySelector('.lastname')
-      lastname.value = `${docSnap.data().lastname}`
-    }else{
-      console.log('no document');
-    }
-  } catch (error) {console.log(error);}
+  const docSnap = await getDoc(docRef)
   
+  user.providerData.forEach((profile)=>{
+    console.log(profile, 'new');
+    if (profile.providerId == 'password') {
+      try {
+        getDownloadURL(imageRef).then((url)=>{
+          const userImage = document.querySelector('.userimage')
+          userImage.innerHTML =`<div class="text-center">
+          <img src="${url}" class="rounded" alt="...">
+        </div>`
+        })
+        if (docSnap.exists()) {
+          const welcomeName = document.querySelector('.welcomeName')
+          welcomeName.innerHTML = `Welcome ${docSnap.data().firstname},`
+          const usersEmail = document.querySelector('.email')
+          usersEmail.value = `${docSnap.data().email}`
+          const firstname = document.querySelector('.firstname')
+          firstname.value = `${docSnap.data().firstname}`
+          const lastname = document.querySelector('.lastname')
+          lastname.value = `${docSnap.data().lastname}`
+        }else{
+          console.log('no document');
+        }
+      } catch (error) {console.log(error);}
+    }else if (profile.providerId == 'google.com') {
+      console.log(profile, 'google', profile.photoURL);
+      const userImage = document.querySelector('.userimage')
+      userImage.innerHTML = `<div class="text-center">
+      <img src="${profile.photoURL}" class="rounded" alt="...">
+    </div>`
+    const welcomeName = document.querySelector('.welcomeName')
+    welcomeName.innerHTML = `Welcome ${profile.displayName},`
+    const usersEmail = document.querySelector('.email')
+    usersEmail.value = `${profile.email}`
+    const namelabel = document.querySelector('.namelabel')
+    namelabel.innerHTML = 'Display Name'
+    const name = document.querySelector('.name')
+    name.value = profile.displayName
+    const googlenone = document.querySelector('.googlenone')
+    googlenone.style.display = 'none'
+    }else if(profile.providerId == 'password' && profile.providerId == 'google.com'){
+      const googlenone = document.querySelector('.googlenone')
+    googlenone.style.display = 'block'
+      try {
+        getDownloadURL(imageRef).then((url)=>{
+          const userImage = document.querySelector('.userimage')
+          userImage.innerHTML =`<div class="text-center">
+          <img src="${url}" class="rounded" alt="...">
+        </div>`
+        })
+        if (docSnap.exists()) {
+          const welcomeName = document.querySelector('.welcomeName')
+          welcomeName.innerHTML = `Welcome ${docSnap.data().firstname},`
+          const usersEmail = document.querySelector('.email')
+          usersEmail.value = `${docSnap.data().email}`
+          const firstname = document.querySelector('.firstname')
+          firstname.value = `${docSnap.data().firstname}`
+          const lastname = document.querySelector('.lastname')
+          lastname.value = `${docSnap.data().lastname}`
+        }else{
+          console.log('no document');
+        }
+      } catch (error) {console.log(error);}
+    }
+  })
+
+
+ 
+  // 
 });
 
 const signedOut = document.querySelector('.signedOut')
