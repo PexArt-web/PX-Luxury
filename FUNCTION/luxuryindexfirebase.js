@@ -48,7 +48,7 @@ signInwithGoogleBTN.addEventListener("click", async (e) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      window.location.href = "./shoppingcart.html";
+      window.location.href = "./HTML/shoppingcart.html";
     })
     .catch((error) => {
       console.log(error);

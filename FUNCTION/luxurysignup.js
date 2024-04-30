@@ -126,7 +126,7 @@ signWithGoogle.addEventListener('click',async () =>{
        const user = result.user;
        // IdP data available using getAdditionalUserInfo(result)
        // ...
-       window.location.href = "../HTML/shoppingcart.html";
+       window.location.href = "./shoppingcart.html";
     })
     .catch((error)=>{
       console.log(error);
