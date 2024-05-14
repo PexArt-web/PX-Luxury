@@ -4,13 +4,14 @@ import {
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 const firebaseConfig = {
-  apiKey: "AIzaSyAlaJM-VlVbuu4P8bLYJueEycgbQGsKFXE",
-  authDomain: "avifarms-38607.firebaseapp.com",
-  projectId: "avifarms-38607",
-  storageBucket: "avifarms-38607.appspot.com",
-  messagingSenderId: "867675622454",
-  appId: "1:867675622454:web:18760e520884d0902f9c97",
+  apiKey: "AIzaSyDoL0BI-a7Y5TiHzwaWbjwgBKahpV7azpU",
+  authDomain: "px-luxury-289ba.firebaseapp.com",
+  projectId: "px-luxury-289ba",
+  storageBucket: "px-luxury-289ba.appspot.com",
+  messagingSenderId: "1091968351878",
+  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07"
 };
+
 
 const app = initializeApp(firebaseConfig);
 
