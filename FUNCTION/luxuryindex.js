@@ -124,7 +124,7 @@ firstDisplay.forEach((display) => {
    <div class="card-body">
      <h5 class="card-title">${display.title}</h5>
      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-     <a href="#signIn">
+     <a href="#signIn" class="text-decoration-none">
      <div class="d-grid gap-2">
      <button class="btn  text-info shopDis" type="button" style="background-color:rgb(2,8,38); height:9vh;" >Shop Now </button>
    </div></a>
