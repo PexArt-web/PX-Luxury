@@ -1307,15 +1307,23 @@ calculateTotalPrice()
 
 addtoCart = (id) =>{
  product.forEach((elem)=>{
-  if (elem.id == id){
-    if(cart.some((cartItem)=> cartItem.id === elem.id)){
-    }else if (!cart.some((cartItem)=> cartItem === elem.id)) {
-      cart.push(elem)
-      const cartLength = document.querySelector('.cartLength')
-      cartLength.innerHTML = cart.length
-    }
+  // if (elem.id == id){
+  //   if(cart.some((cartItem)=> cartItem.id === elem.id)){
+  //   }else if (!cart.some((cartItem)=> cartItem === elem.id)) {
+  //     cart.push(elem)
+  //     const cartLength = document.querySelector('.cartLength')
+  //     cartLength.innerHTML = cart.length
+  //   }
+  // }
+
+  if(elem.id == id){
+    cart.push(elem)
+        const cartLength = document.querySelector('.cartLength')
+        cartLength.innerHTML = cart.length
   }
  })
+ console.log(cart, 'from add to cart');
+
  displayCartProduct()
 }
 const total = document.querySelector('.total')
@@ -1352,6 +1360,7 @@ displayCartProduct = () =>{
       total.innerHTML = `$${calculateTotalPrice()}`
       
     })
+    // console.log(cartBody.innerHTML);
   }
 }
 displayCartProduct()
@@ -1370,6 +1379,7 @@ emptyCart.addEventListener('click',()=>{
   const cartLength = document.querySelector('.cartLength')
   cartLength.innerHTML = cart.length
   total.innerHTML = `$${calculateTotalPrice()}`
+  localStorage.removeItem('totalPrice')
   displayCartProduct()
 
 })
@@ -1380,7 +1390,9 @@ checkOut.addEventListener('click',()=>{
   if (cart.length !== 0) {
     localStorage.removeItem('totalPrice')
     localStorage.setItem('totalPrice', calculateTotalPrice())
-    window.location.href = "../HTML/luxuryshipping.html";
+   
+
+    // window.location.href = "../HTML/luxuryshipping.html";
   }else{
     emptyCartAlert.innerHTML = ''
     emptyCartAlert.innerHTML = `
