@@ -1378,6 +1378,7 @@ const checkOut = document.querySelector('.checkOut')
 checkOut.addEventListener('click',()=>{
   const emptyCartAlert = document.querySelector('.emptycartalert')  
   if (cart.length !== 0) {
+    localStorage.removeItem('totalPrice')
     localStorage.setItem('totalPrice', calculateTotalPrice())
     window.location.href = "../HTML/luxuryshipping.html";
   }else{

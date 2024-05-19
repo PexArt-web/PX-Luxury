@@ -25,6 +25,7 @@ shipMethodOptions.forEach((ele, i) => {
 
 async function check(id) {
   let shipMethod = document.getElementById("shipMethod");
+  localStorage.removeItem('shipping-fee')
   localStorage.setItem("shipping-fee", shipMethodOptions[id].optionPrice);
   if (shipMethodOptions[id].optionPrice === "FREE") {
     localStorage.setItem("shipping-fee", 0);

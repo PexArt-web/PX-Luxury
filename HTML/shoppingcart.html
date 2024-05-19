@@ -47,13 +47,14 @@
             </button> 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-person-circle btn"
-                    type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop"></i></a>
-                </li>
                 <li class="nav-item displayName">
                   <a class="nav-link mt-2 welcomeName" href="#">Welcome {name},</a>
                 </li>
+
+                <li class="nav-item mt-2">
+                  <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">Profile</a>
+                </li>
+               
                 <li class="nav-item dropdown mt-2">
                   <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Categories
@@ -67,6 +68,14 @@
                     <li><hr class="dropdown-divider"></li>
                     
                   </ul>
+                </li>
+                
+                <li class="nav-item displayName">
+                  <a class="nav-link mt-2 welcomeName" href="#" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Order History</a>
+                  <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                   Your Order list coming soon ...
+                    </div>
                 </li>
                
               </ul>
