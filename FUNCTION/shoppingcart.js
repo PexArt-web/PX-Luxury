@@ -1349,9 +1349,9 @@ displayCartProduct = () =>{
     cart.forEach((ele,index)=>{
       cartBody.innerHTML +=`
       <div class="mb-2 p-2 d-flex justify-content-center align-items-center gap-1">
-      <img src="${ele.image}" class = "img-fluid" alt=""  style="width:7rem;">
-      <p>${ele.title.slice(0, 25)}...</p>
-      <p>$${ele.price}</p>
+      <img src="${ele.image}" class = "img-fluid cartImage" alt=""  style="width:7rem;">
+      <p class = 'cartTitle'>${ele.title.slice(0, 25)}...</p>
+      <p class = 'cartPrice'>$${ele.price}</p>
       <span>
     <button type="button" class="btn btn-outline-danger mb-3" id="cartDel" onclick="deleteCart(${index})">Delete</button>
    </span>
@@ -1405,6 +1405,9 @@ checkOut.addEventListener('click',()=>{
       emptyCartAlert.innerHTML = ''
     },3000)
   }
+
+  
+  
 })
 
 function cate(ev) {

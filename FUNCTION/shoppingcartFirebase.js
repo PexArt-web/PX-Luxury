@@ -128,26 +128,59 @@ checkOut.addEventListener("click", async (e) => {
   e.preventDefault();
   alert("from firebase");
   const cartBody = document.querySelector(".cartProductDisplay");
-  let orderedList = cartBody.innerHTML;
+  // let orderedList = cartBody.innerHTML;
   // console.log(orderedList);
+  let cartTitle = document.querySelector('.cartTitle').innerHTML
+  let cartPrice = document.querySelector('.cartPrice').innerHTML
+  let cartImage = document.querySelector('.cartImage').src
+  const total = document.querySelector('.total')
+  total.innerHTML = `$${calculateTotalPrice()}`
+ let totalChecked = total.innerHTML
+
   try {
     if (cartBody.innerHTML != false) {
       const creatNewDoc = await addDoc(orderRef, {
-        orderedList,
+        cartTitle,
+        cartPrice,
+        cartImage,
+        totalChecked
       });
 
-      const querySnapshot = await getDocs(orderRef)
-      querySnapshot.forEach((orderslist)=>{
-        console.log(orderslist.id, " => ", orderslist.data().orderedList, 'from base');
-        const listOrder = document.querySelector('.orderCard')
-        listOrder.innerHTML += `${orderslist.data().orderedList}`
-
-      })
+     
     }
   } catch (error) {
     console.log(error);
   }
+  displayCartProduct()
 });
+
+
+onAuthStateChanged(auth, async(user)=>{
+  if (user){
+    try {
+      const querySnapshot = await getDocs(orderRef)
+      querySnapshot.forEach((orderslist)=>{
+        // console.log(orderslist.id, " => ", orderslist.data().orderedList, 'from base');
+        const listOrder = document.querySelector('.orderCard')
+        listOrder.innerHTML = ''
+        listOrder.innerHTML += `
+        <div class = 'd-flex card-body justify-content-center gap-2'>
+        <img src = '${orderslist.data().cartImage}' class = 'historyImage'>
+        <p>${orderslist.data().cartTitle}</p>
+        <p>${orderslist.data().cartPrice}</p>
+        <div><p>total:${orderslist.data().totalChecked}</p></div>
+        </div>
+        `
+        console.log(orderslist.data());
+        console.log(orderslist.data().cartTitle, 'from real base');
+   
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+})
 
 
 const signedOut = document.querySelector(".signedOut");
