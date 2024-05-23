@@ -12,7 +12,9 @@ import {
   collection,
   getDoc,
   addDoc,
-  getDocs
+  getDocs,
+  query,
+   where,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 import {
   getStorage,
@@ -41,6 +43,7 @@ const auth = getAuth();
 const colRef = collection(db, "users");
 const storage = getStorage();
 const orderRef = collection(db, "customerOrder");
+const transactionId = true
 
 onAuthStateChanged(auth, async (user) => {
   const docRef = doc(colRef, user.uid, "usersDetails", "profileDetails");
@@ -48,140 +51,121 @@ onAuthStateChanged(auth, async (user) => {
   const imageRef = ref(userRef, "profile-image.jpg");
   const docSnap = await getDoc(docRef);
 
-  user.providerData.forEach((profile) => {
-    console.log(profile, "new");
-    if (profile.providerId == "password") {
-      try {
-        getDownloadURL(imageRef).then((url) => {
-          const userImage = document.querySelector(".userimage");
-          userImage.innerHTML = `<div class="text-center">
-          <img src="${url}" class="rounded" alt="...">
-        </div>`;
-        });
-        if (docSnap.exists()) {
-          const welcomeName = document.querySelector(".welcomeName");
-          welcomeName.innerHTML = `Welcome ${docSnap.data().firstname},`;
-          const usersEmail = document.querySelector(".email");
-          usersEmail.value = `${docSnap.data().email}`;
-          const firstname = document.querySelector(".firstname");
-          firstname.value = `${docSnap.data().firstname}`;
-          const lastname = document.querySelector(".lastname");
-          lastname.value = `${docSnap.data().lastname}`;
-        } else {
-          console.log("no document");
+  let userImage = document.querySelector(".userimage");
+  let welcomeName = document.querySelector(".welcomeName");
+  let userEmail = document.querySelector(".email");
+  let firstname = document.querySelector(".firstname");
+  let lastname = document.querySelector(".lastname");
+  try {
+    const checkLogInType = await user.providerData.forEach((profile) => {
+      console.log(profile, "new profile");
+      if (profile.providerId == "password") {
+        async function getImagefromBase() {
+        const profileImage =  await getDownloadURL(imageRef).then((url) => {
+          userImage.innerHTML =  `<div class="text-center">
+          <img src="${url}" class="rounded" alt="..."> </div>`;
+         
+          })
         }
-      } catch (error) {
-        console.log(error);
+        getImagefromBase()
+      if (docSnap.exists()) {
+        welcomeName.innerHTML = `Welcome ${docSnap.data().firstname}`;
+        userEmail.value = docSnap.data().email;
+        firstname.value = docSnap.data().firstname;
+        lastname.value = docSnap.data().lastname;
       }
-    } else if (profile.providerId == "google.com") {
-      console.log(profile, "google", profile.photoURL);
-      const userImage = document.querySelector(".userimage");
-      userImage.innerHTML = `<div class="text-center">
-      <img src="${profile.photoURL}" class="rounded" alt="...">
-    </div>`;
-      const welcomeName = document.querySelector(".welcomeName");
-      welcomeName.innerHTML = `Welcome ${profile.displayName},`;
-      const usersEmail = document.querySelector(".email");
-      usersEmail.value = `${profile.email}`;
-      const namelabel = document.querySelector(".namelabel");
-      namelabel.innerHTML = "Display Name";
-      const name = document.querySelector(".name");
-      name.value = profile.displayName;
-      const googlenone = document.querySelector(".googlenone");
-      googlenone.style.display = "none";
-    } else if (
-      profile.providerId == "password" &&
-      profile.providerId == "google.com"
-    ) {
-      const googlenone = document.querySelector(".googlenone");
-      googlenone.style.display = "block";
-      try {
-        getDownloadURL(imageRef).then((url) => {
-          const userImage = document.querySelector(".userimage");
-          userImage.innerHTML = `<div class="text-center">
-          <img src="${url}" class="rounded" alt="...">
-        </div>`;
-        });
+      }else if (profile.providerId == "google.com") {
+        userImage.innerHTML = `<div class="text-center"> <img src="${profile.photoURL}" class="rounded" alt="...">
+     </div>`;
+        welcomeName.innerHTML = `Welcome ${profile.displayName},`;
+        userEmail.value = profile.email;
+        const namelabel = document.querySelector(".namelabel");
+        namelabel.innerHTML = "Display Name";
+        const name = document.querySelector(".name");
+        name.value = profile.displayName;
+        const googlenone = document.querySelector(".googlenone");
+        googlenone.style.display = "none";
+      }else if(profile.providerId == "password" && profile.providerId == "google.com"){
+        const googlenone = document.querySelector(".googlenone");
+        googlenone.style.display = "block";
+        async function getImagefromBase() {
+          const getImage =  await getDownloadURL(imageRef).then((url) => {
+           
+           userImage.innerHTML = `<div class="text-center">
+            <img src="${url}" class="rounded" alt="..."> </div>`;
+            })
+          }
+          getImagefromBase()
         if (docSnap.exists()) {
-          const welcomeName = document.querySelector(".welcomeName");
-          welcomeName.innerHTML = `Welcome ${docSnap.data().firstname},`;
-          const usersEmail = document.querySelector(".email");
-          usersEmail.value = `${docSnap.data().email}`;
-          const firstname = document.querySelector(".firstname");
-          firstname.value = `${docSnap.data().firstname}`;
-          const lastname = document.querySelector(".lastname");
-          lastname.value = `${docSnap.data().lastname}`;
-        } else {
-          console.log("no document");
+          welcomeName.innerHTML = `Welcome ${docSnap.data().firstname}`;
+          userEmail.value = docSnap.data().email;
+          firstname.value = docSnap.data().firstname;
+          lastname.value = docSnap.data().lastname;
         }
-      } catch (error) {
-        console.log(error);
       }
-    }
-  });
-
-  //
+    });
+    //
+  } catch (error) {
+    console.log(error);
+  }
 });
+
+
 
 const checkOut = document.querySelector(".checkOut");
 checkOut.addEventListener("click", async (e) => {
   e.preventDefault();
   alert("from firebase");
-  const cartBody = document.querySelector(".cartProductDisplay");
-  // let orderedList = cartBody.innerHTML;
-  // console.log(orderedList);
-  let cartTitle = document.querySelector('.cartTitle').innerHTML
-  let cartPrice = document.querySelector('.cartPrice').innerHTML
-  let cartImage = document.querySelector('.cartImage').src
   const total = document.querySelector('.total')
   total.innerHTML = `$${calculateTotalPrice()}`
- let totalChecked = total.innerHTML
-
+  let totalChecked = total.innerHTML
   try {
-    if (cartBody.innerHTML != false) {
-      const creatNewDoc = await addDoc(orderRef, {
-        cartTitle,
-        cartPrice,
-        cartImage,
-        totalChecked
-      });
-
-     
+    if (!cart) {
+      return
+    }else{
+      cart.forEach(async (ele)=>{
+        let ordertitle = ele.title
+        let orderprice = ele.price
+        console.log(ordertitle, orderprice , 'respectively');
+        const creatNewDoc = await addDoc(orderRef,{
+          ordertitle,
+          orderprice,
+          totalChecked,
+          transactionId
+        })
+      })
     }
   } catch (error) {
     console.log(error);
   }
+ 
   displayCartProduct()
 });
-
 
 onAuthStateChanged(auth, async(user)=>{
   if (user){
     try {
-      const querySnapshot = await getDocs(orderRef)
-      querySnapshot.forEach((orderslist)=>{
-        // console.log(orderslist.id, " => ", orderslist.data().orderedList, 'from base');
-        const listOrder = document.querySelector('.orderCard')
-        listOrder.innerHTML = ''
-        listOrder.innerHTML += `
-        <div class = 'd-flex card-body justify-content-center gap-2'>
-        <img src = '${orderslist.data().cartImage}' class = 'historyImage'>
-        <p>${orderslist.data().cartTitle}</p>
-        <p>${orderslist.data().cartPrice}</p>
-        <div><p>total:${orderslist.data().totalChecked}</p></div>
-        </div>
+     const orderQuery = query(orderRef, where('transactionId', '==', true))
+     const documents = await getDocs(orderQuery).then((querysnapshot)=>{
+      querysnapshot.forEach((doc)=>{
+      
+        const list_order = document.querySelector('.orderCard')
+        list_order.innerHTML += `<ul>
+        <li>${doc.data().ordertitle} x $${doc.data().orderprice}</li>       
+        </ul>
         `
-        console.log(orderslist.data());
-        console.log(orderslist.data().cartTitle, 'from real base');
-   
+        const total_list_amount = document.querySelector('.totalChecked')
+        total_list_amount.innerHTML = `OrderTotal: ${doc.data().totalChecked}`
       })
+     })
     } catch (error) {
       console.log(error);
     }
+  }else{
+    console.log('no document found');
   }
-  
-})
 
+})
 
 const signedOut = document.querySelector(".signedOut");
 signedOut.addEventListener("click", async (e) => {
