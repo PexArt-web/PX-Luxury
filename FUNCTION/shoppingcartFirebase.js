@@ -115,7 +115,6 @@ onAuthStateChanged(auth, async (user) => {
 const checkOut = document.querySelector(".checkOut");
 checkOut.addEventListener("click", async (e) => {
   e.preventDefault();
-  alert("from firebase");
   const total = document.querySelector('.total')
   total.innerHTML = `$${calculateTotalPrice()}`
   let totalChecked = total.innerHTML

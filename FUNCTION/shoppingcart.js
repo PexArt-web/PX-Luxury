@@ -1390,9 +1390,7 @@ checkOut.addEventListener('click',()=>{
   if (cart.length !== 0) {
     localStorage.removeItem('totalPrice')
     localStorage.setItem('totalPrice', calculateTotalPrice())
-   
-
-    // window.location.href = "../HTML/luxuryshipping.html";
+    window.location.href = "../HTML/luxuryshipping.html";
   }else{
     emptyCartAlert.innerHTML = ''
     emptyCartAlert.innerHTML = `

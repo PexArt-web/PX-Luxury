@@ -22,35 +22,33 @@ const auth = getAuth();
 const db = getFirestore(app);
 const colRef = collection(db, "users");
 
+//
+const email = document.querySelector(".email");
+const paymentcardname = document.querySelector(".cardname");
+const stackEmail = document.querySelector(".stackemail");
+let stackAmount = document.querySelector(".stackAmount");
+const stackFirstname = document.querySelector(".stackFirstname");
+const stackLastname = document.querySelector(".stackLastname");
+
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    const uid = user.uid;
-    const email = document.querySelector(".email");
-    const paymentcardname = document.querySelector(".cardname");
-    const stackEmail = document.querySelector(".stackemail");
-    const stackAmount = document.querySelector(".stackAmount");
-    const stackFirstname = document.querySelector(".stackFirstname");
-    const stackLastname = document.querySelector(".stackLastname");
+    const docRef = doc(colRef, user.uid, "usersDetails", "profileDetails");
 
     try {
-      const docRef = doc(colRef, user.uid, "usersDetails", "profileDetails");
-
       const getNewDoc = await getDoc(docRef, "profileDetails");
-
       if (getNewDoc.exists()) {
         email.value = getNewDoc.data().email;
         paymentcardname.value = `${getNewDoc.data().firstname} ${
           getNewDoc.data().lastname
         }`;
+        // paystack info**
+        stackEmail.value = getNewDoc.data().email
+        stackFirstname.value = getNewDoc.data().firstname
+        stackLastname.value = getNewDoc.data().lastname
 
-        /** paystack info */
-
-        stackEmail.value = `${getNewDoc.data().email}`;
-        stackFirstname.value = `${getNewDoc.data().firstname}`;
-        stackLastname.value = `${getNewDoc.data().lastname}`;
-
-        stackAmount.value = ''
-        stackAmount.value = Number(localStorage.getItem("totalAmount"));
+       
+        stackAmount.value = amountTotal.innerHTML
       }
     } catch (error) {
       console.log(error);
@@ -64,38 +62,39 @@ onAuthStateChanged(auth, async (user) => {
         </div>
         `;
       }
+    } finally {
     }
+
+
   }
 });
 
-const userEmail = document.querySelector(".stackemail");
-const stackAmount = document.querySelector(".stackAmount");
-stackAmount.value = calculateTotalAmount;
-console.log(calculateTotalAmount, 'total');
+// 
 const payStack = document.querySelector(".payStack");
 payStack.addEventListener("submit", payWithPaystack, false);
-function payWithPaystack(e) {
-  e.preventDefault();
+function payWithPaystack(e){
+  e.preventDefault()
   let handler = PaystackPop.setup({
-    key: "pk_test_bb3514eaf08a35c25e2d8d0a8c887d391362661d",
-    email: userEmail.value,
-    amount: stackAmount.value * 100,
-    ref: "" + Math.round(Math.floor(Math.random() * 1000000000 + 1)),
-    //
-
-    onclose: function () {
+    key:"pk_test_bb3514eaf08a35c25e2d8d0a8c887d391362661d",
+    email: stackEmail.value,
+    amount: stackAmount.value * 100, ref: "" + Math.floor(Math.random() * 1000000000 + 1 ),
+    // 
+    onclose: function(){
       alert("window closed");
     },
-    callback: function (response) {
+    callback:function(response){
       let message = "Payment complete! Reference: " + response.reference;
       const payStackWrap = document.querySelector(".payStack");
       payStackWrap.style.display = "none";
-       
-      //  storage update
-      // localStorage.clear()
+      // 
       const processed = document.querySelector(".processed");
       processed.style.display = "block";
-    },
-  });
+      // clear storage
+      localStorage.clear()
+    }
+  })
   handler.openIframe();
 }
+
+
+

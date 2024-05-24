@@ -11,7 +11,7 @@ const calculateTotalAmount = (subTotalAmount + vatpercent + shippingFee
 ).toFixed(2)
 const totalAmount = document.querySelector('.totalAmount')
 
-totalAmount.innerHTML = `$${calculateTotalAmount}`
+totalAmount.innerHTML = calculateTotalAmount 
 
 const userInput = document.querySelector('.userInput')
 userInput.addEventListener('submit',async(e)=>{
@@ -30,8 +30,8 @@ userInput.addEventListener('submit',async(e)=>{
     `;
     if (cardnumber.value != '' && cardexpirydate.value != '' && cvv != '') {
         try {
-            localStorage.removeItem('totalAmount')
-            localStorage.setItem('totalAmount', calculateTotalAmount)
+            // localStorage.removeItem('totalAmount')
+            // localStorage.setItem('totalAmount', calculateTotalAmount)
     
         } catch (error) {
             console.log(error);
@@ -52,9 +52,6 @@ userInput.addEventListener('submit',async(e)=>{
                 paystackblock.style.display = 'block'
 
             },8000)
-            
-            //  storage update
-            localStorage.clear()
         }
         
     }else{
@@ -63,9 +60,6 @@ userInput.addEventListener('submit',async(e)=>{
     
 })
 
-//  storage update
-
-// localStorage.clear()
 
 const backtoshipping = document.querySelector('.backToluxuryshipping')
 backtoshipping.style.cursor = 'pointer'
