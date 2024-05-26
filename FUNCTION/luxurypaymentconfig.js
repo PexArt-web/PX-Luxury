@@ -8,6 +8,10 @@ import {
   doc,
   collection,
   getDoc,
+  getDocs,
+  updateDoc,
+  where,
+  query,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDoL0BI-a7Y5TiHzwaWbjwgBKahpV7azpU",
@@ -21,6 +25,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 const colRef = collection(db, "users");
+const orderRef = collection(db, "customerOrder");
+// const orderDocRef = doc(colRef, "customerOrder")
 
 //
 const email = document.querySelector(".email");
@@ -29,7 +35,7 @@ const stackEmail = document.querySelector(".stackemail");
 let stackAmount = document.querySelector(".stackAmount");
 const stackFirstname = document.querySelector(".stackFirstname");
 const stackLastname = document.querySelector(".stackLastname");
-
+let transactionStatus = 'Order completed'
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -43,12 +49,10 @@ onAuthStateChanged(auth, async (user) => {
           getNewDoc.data().lastname
         }`;
         // paystack info**
-        stackEmail.value = getNewDoc.data().email
-        stackFirstname.value = getNewDoc.data().firstname
-        stackLastname.value = getNewDoc.data().lastname
-
-       
-        stackAmount.value = amountTotal.innerHTML
+        stackEmail.value = getNewDoc.data().email;
+        stackFirstname.value = getNewDoc.data().firstname;
+        stackLastname.value = getNewDoc.data().lastname;
+        stackAmount.value = amountTotal.innerHTML;
       }
     } catch (error) {
       console.log(error);
@@ -64,37 +68,56 @@ onAuthStateChanged(auth, async (user) => {
       }
     } finally {
     }
-
-
   }
 });
 
-// 
+//
 const payStack = document.querySelector(".payStack");
 payStack.addEventListener("submit", payWithPaystack, false);
-function payWithPaystack(e){
-  e.preventDefault()
+function payWithPaystack(e) {
+  e.preventDefault();
   let handler = PaystackPop.setup({
-    key:"pk_test_bb3514eaf08a35c25e2d8d0a8c887d391362661d",
+    key: "pk_test_bb3514eaf08a35c25e2d8d0a8c887d391362661d",
     email: stackEmail.value,
-    amount: stackAmount.value * 100, ref: "" + Math.floor(Math.random() * 1000000000 + 1 ),
-    // 
-    onclose: function(){
+    amount: stackAmount.value * 100,
+    ref: "" + Math.floor(Math.random() * 1000000000 + 1),
+    //
+    onclose: function () {
       alert("window closed");
     },
-    callback:function(response){
+    callback: function (response) {
       let message = "Payment complete! Reference: " + response.reference;
       const payStackWrap = document.querySelector(".payStack");
       payStackWrap.style.display = "none";
-      // 
+      //
       const processed = document.querySelector(".processed");
       processed.style.display = "block";
       // clear storage
-      localStorage.clear()
-    }
-  })
+      localStorage.clear();
+    },
+  });
   handler.openIframe();
 }
 
+// to update document
 
-
+const userInput = document.querySelector(".userInput");
+userInput.addEventListener("submit", async (e) => {
+  const orderQuery = query(orderRef, where("transactionId", "==", true));
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const querydocument = await getDocs(orderQuery).then((querysnapshot) => {
+        querysnapshot.forEach((document) => {
+          console.log(document.data(), "==", document.id);
+          // const statuQuery = await updateDoc
+          async function querystatus() {
+            const orderDocRef = doc(orderRef, doc.id);
+            const statusQuery = await updateDoc(orderDocRef, {
+              transactionStatus,
+            });
+          }
+        });
+      });
+    }
+  });
+});

@@ -40,15 +40,15 @@ userInput.addEventListener("submit", async (e) => {
     let processing = document.querySelector(".processingWrapper");
     const payStackblock = document.querySelector(".payStack");
 
-    setTimeout(()=>{
-        userInput.style.display = 'none'
-        processing.style.display = 'block'
-    }, 4000)
+    // setTimeout(()=>{
+    //     userInput.style.display = 'none'
+    //     processing.style.display = 'block'
+    // }, 4000)
 
-    setTimeout(()=>{
-        processing.style.display = 'none'
-        payStackblock.style.display = 'block'
-    }, 8000)
+    // setTimeout(()=>{
+    //     processing.style.display = 'none'
+    //     payStackblock.style.display = 'block'
+    // }, 8000)
 
 
     payBtn.disabled = false

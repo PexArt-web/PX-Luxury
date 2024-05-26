@@ -1,14 +1,61 @@
-<div class="col">
-   <div class="card h-100" style="height: 40vh">
-   <img src="${display.image}" class="card-img-top" alt="..." style="height: 40vh;">
-   <div class="card-body">
-     <h5 class="card-title">${display.title}</h5>
-     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-     <a href="#signIn" class="text-decoration-none">
-     <div class="d-grid gap-2">
-     <button class="btn  text-info shopDis" type="button" style="background-color:rgb(2,8,38); height:9vh;" >Shop Now </button>
-   </div></a>
-   </div>
+<!-- initialconfig -->
+const checkOut = document.querySelector(".checkOut");
+checkOut.addEventListener("click", async (e) => {
+  e.preventDefault();
+  if (cart.length !== 0) {
+  const total = document.querySelector('.total')
+  total.innerHTML = `$${calculateTotalPrice()}`
+  let totalChecked = total.innerHTML
+  onAuthStateChanged(auth,async(user)=>{
+    const orderRef =  collection(colRef, user.uid,'customerOrder');
+    try {
+      cart.forEach(async (ele)=>{
+        let ordertitle = ele.title
+        let orderprice = ele.price
+        const creatNewDoc = await addDoc(orderRef,{
+          ordertitle,
+          orderprice,
+          totalChecked,
+          transactionId
+        })
+      })
+    } catch (error) {
+      console.log(error);
+    }finally{
+      window.location.href = "../HTML/luxuryshipping.html";
+    }
+    
+  })
+}else{
+  return
+}
+});
+
+<!--  -->
+
+
+const checkOut = document.querySelector('.checkOut')
+checkOut.addEventListener('click',()=>{
+  const emptyCartAlert = document.querySelector('.emptycartalert')  
+  if (cart.length !== 0) {
+    localStorage.removeItem('totalPrice')
+    localStorage.setItem('totalPrice', calculateTotalPrice())
+    window.location.href = "../HTML/luxuryshipping.html";
+  }else{
+    emptyCartAlert.innerHTML = ''
+    emptyCartAlert.innerHTML = `
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <strong>Hello! Your cart is empty</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    `
+    setTimeout(()=>{
+      emptyCartAlert.innerHTML = ''
+    },3000)
+  }
+
   
- </div>
- </div>
+  
+})
+
+

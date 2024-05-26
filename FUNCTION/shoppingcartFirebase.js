@@ -14,7 +14,9 @@ import {
   addDoc,
   getDocs,
   query,
-   where,
+  arrayUnion,
+  serverTimestamp,
+  where,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 import {
   getStorage,
@@ -42,11 +44,14 @@ const db = getFirestore(app);
 const auth = getAuth();
 const colRef = collection(db, "users");
 const storage = getStorage();
-const orderRef = collection(db, "customerOrder");
-const transactionId = true
+// const orderRef = collection(db, "customerOrder");
+const transactionId = true;
+const connectionerror = document.querySelector(".connection_error");
 
+// getting profile details
 onAuthStateChanged(auth, async (user) => {
   const docRef = doc(colRef, user.uid, "usersDetails", "profileDetails");
+  const orderRef = doc(colRef, user.uid, "userDetails", "customerOrder");
   const userRef = ref(storage, `images/${user.uid}`);
   const imageRef = ref(userRef, "profile-image.jpg");
   const docSnap = await getDoc(docRef);
@@ -61,20 +66,19 @@ onAuthStateChanged(auth, async (user) => {
       console.log(profile, "new profile");
       if (profile.providerId == "password") {
         async function getImagefromBase() {
-        const profileImage =  await getDownloadURL(imageRef).then((url) => {
-          userImage.innerHTML =  `<div class="text-center">
+          const profileImage = await getDownloadURL(imageRef).then((url) => {
+            userImage.innerHTML = `<div class="text-center">
           <img src="${url}" class="rounded" alt="..."> </div>`;
-         
-          })
+          });
         }
-        getImagefromBase()
-      if (docSnap.exists()) {
-        welcomeName.innerHTML = `Welcome ${docSnap.data().firstname}`;
-        userEmail.value = docSnap.data().email;
-        firstname.value = docSnap.data().firstname;
-        lastname.value = docSnap.data().lastname;
-      }
-      }else if (profile.providerId == "google.com") {
+        getImagefromBase();
+        if (docSnap.exists()) {
+          welcomeName.innerHTML = `Welcome ${docSnap.data().firstname}`;
+          userEmail.value = docSnap.data().email;
+          firstname.value = docSnap.data().firstname;
+          lastname.value = docSnap.data().lastname;
+        }
+      } else if (profile.providerId == "google.com") {
         userImage.innerHTML = `<div class="text-center"> <img src="${profile.photoURL}" class="rounded" alt="...">
      </div>`;
         welcomeName.innerHTML = `Welcome ${profile.displayName},`;
@@ -85,17 +89,19 @@ onAuthStateChanged(auth, async (user) => {
         name.value = profile.displayName;
         const googlenone = document.querySelector(".googlenone");
         googlenone.style.display = "none";
-      }else if(profile.providerId == "password" && profile.providerId == "google.com"){
+      } else if (
+        profile.providerId == "password" &&
+        profile.providerId == "google.com"
+      ) {
         const googlenone = document.querySelector(".googlenone");
         googlenone.style.display = "block";
         async function getImagefromBase() {
-          const getImage =  await getDownloadURL(imageRef).then((url) => {
-           
-           userImage.innerHTML = `<div class="text-center">
+          const getImage = await getDownloadURL(imageRef).then((url) => {
+            userImage.innerHTML = `<div class="text-center">
             <img src="${url}" class="rounded" alt="..."> </div>`;
-            })
-          }
-          getImagefromBase()
+          });
+        }
+        getImagefromBase();
         if (docSnap.exists()) {
           welcomeName.innerHTML = `Welcome ${docSnap.data().firstname}`;
           userEmail.value = docSnap.data().email;
@@ -107,65 +113,94 @@ onAuthStateChanged(auth, async (user) => {
     //
   } catch (error) {
     console.log(error);
-  }
-});
-
-
-
-const checkOut = document.querySelector(".checkOut");
-checkOut.addEventListener("click", async (e) => {
-  e.preventDefault();
-  const total = document.querySelector('.total')
-  total.innerHTML = `$${calculateTotalPrice()}`
-  let totalChecked = total.innerHTML
-  try {
-    if (!cart) {
-      return
-    }else{
-      cart.forEach(async (ele)=>{
-        let ordertitle = ele.title
-        let orderprice = ele.price
-        console.log(ordertitle, orderprice , 'respectively');
-        const creatNewDoc = await addDoc(orderRef,{
-          ordertitle,
-          orderprice,
-          totalChecked,
-          transactionId
-        })
-      })
+    if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+      connectionerror.innerHTML = "";
+      connectionerror.innerHTML = `
+      <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+      <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      `;
     }
-  } catch (error) {
-    console.log(error);
   }
- 
-  displayCartProduct()
 });
 
-onAuthStateChanged(auth, async(user)=>{
-  if (user){
+// getting order details
+
+onAuthStateChanged(auth, async (user) => {
+  const orderRef = collection(colRef, user.uid, "customerOrder");
+  const listOrder = document.querySelector('.orderCard')
+  if (user) {
     try {
-     const orderQuery = query(orderRef, where('transactionId', '==', true))
-     const documents = await getDocs(orderQuery).then((querysnapshot)=>{
-      querysnapshot.forEach((doc)=>{
-      
-        const list_order = document.querySelector('.orderCard')
-        list_order.innerHTML += `<ul>
-        <li>${doc.data().ordertitle} x $${doc.data().orderprice}</li>       
-        </ul>
-        `
-        const total_list_amount = document.querySelector('.totalChecked')
-        total_list_amount.innerHTML = `OrderTotal: ${doc.data().totalChecked}`
-      })
-     })
+      // const orderQuery = query(orderRef, where("transactionId", "==", true));
+      const documents = await getDocs(orderRef).then((querysnapshot) => {
+        querysnapshot.forEach((doc) => {
+          console.log(doc.data());
+          doc.data().orderCart.forEach((orders)=>{
+            console.log(orders.orderTot);
+            listOrder.innerHTML += `<ul>
+            <li>
+                ${orders.title}
+            </li>
+            </ul>`
+          })
+         
+        });
+      });
     } catch (error) {
       console.log(error);
+      if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+        connectionerror.innerHTML = "";
+        connectionerror.innerHTML = `
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+        <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        `;
+      }
     }
-  }else{
-    console.log('no document found');
+  } else {
+    console.log("no document found");
   }
+});
 
-})
+// check out config
+const checkOut = document.querySelector(".checkOut");
+const emptyCartAlert = document.querySelector(".emptycartalert");
+const total = document.querySelector(".total");
+checkOut.addEventListener("click", async () => {
+  onAuthStateChanged(auth, async (user) => {
+    if (cart.length == 0) {
+      alert("returned");
+      emptyCartAlert.innerHTML = "";
+      emptyCartAlert.innerHTML = `
+      <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+      <strong>Hello! Your cart is empty</strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+      `;
+      setTimeout(() => {
+        emptyCartAlert.innerHTML = "";
+      }, 3000);
+      return;
+    }
+    let totalChecked = total.innerHTML;
+    const orderRef = collection(colRef, user.uid, "customerOrder");
+    try {
+      cart.push(totalChecked)
+      const createDoc = await addDoc(orderRef,{
+        cart,
+        timestamp: serverTimestamp(),
+      })
+    } catch (error) {
+      console.log(error, 'order error');
+    }finally{
+      alert('done')
+    }
+  });
+});
 
+// sign out
 const signedOut = document.querySelector(".signedOut");
 signedOut.addEventListener("click", async (e) => {
   e.preventDefault();

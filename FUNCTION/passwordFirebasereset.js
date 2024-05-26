@@ -16,9 +16,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
-
+const connectionerror = document.querySelector('.connection_error')
 let resetPassword = document.getElementById("reset");
-
 resetPassword.addEventListener("click", async (e) => {
   e.preventDefault(e);
   let email = document.getElementById("floatingInput").value;
@@ -37,7 +36,17 @@ resetPassword.addEventListener("click", async (e) => {
       </div>`
     
       })
-      .catch((error) => {});
+      .catch((error) => {
+        if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+          connectionerror.innerHTML = "";
+          connectionerror.innerHTML = `
+          <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+          <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          `;
+        }
+      });
   } catch (error) {
   } finally {
     resetPassword.innerHTML = `Continue`;

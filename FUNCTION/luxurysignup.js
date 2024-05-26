@@ -22,9 +22,7 @@ const auth = getAuth(app)
 
 const db = getFirestore(app);
 const colRef = collection(db, "users");
-
-
-
+const connectionerror = document.querySelector('.connection_error')
 
 const validPassword = document.querySelector(".validate");
 const pattern =
@@ -97,11 +95,17 @@ try {
     getDownloadURL(snapshot.ref).then((downloadURL)=>{
     })
   })
-  
-
-
 } catch (error) {
   console.log(error);
+  if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+    connectionerror.innerHTML = "";
+    connectionerror.innerHTML = `
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+    <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    `;
+  }
 }finally{
   if (pattern.test(password)== true) {
     window.location.href = '../index.html'
@@ -109,11 +113,9 @@ try {
     createaccount.disabled = false
   }
 }
-
 })
 
 const signWithGoogle = document.querySelector('.google');
-
 signWithGoogle.addEventListener('click',async () =>{
   try {
     const auth = getAuth()
@@ -130,6 +132,15 @@ signWithGoogle.addEventListener('click',async () =>{
     })
     .catch((error)=>{
       console.log(error);
+      if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+        connectionerror.innerHTML = "";
+        connectionerror.innerHTML = `
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+        <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        `;
+      }
     })
     .finally(()=>{})
   } catch (error) {

@@ -51,7 +51,7 @@ signInwithGoogleBTN.addEventListener("click", async (e) => {
       window.location.href = "./HTML/shoppingcart.html";
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
     });
 }); 
 /* sign in with google ends */
