@@ -14,7 +14,6 @@ import {
   addDoc,
   getDocs,
   query,
-  arrayUnion,
   serverTimestamp,
   where,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
@@ -125,44 +124,59 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+
+
+
+// GETTING ORDER LIST HAS BEEN TRANSFERRED TO PAYMENT SECTION TO GENERATE ID
+
 // getting order details
 
-onAuthStateChanged(auth, async (user) => {
-  const orderRef = collection(colRef, user.uid, "customerOrder");
-  const listOrder = document.querySelector('.orderCard')
-  if (user) {
-    try {
-      // const orderQuery = query(orderRef, where("transactionId", "==", true));
-      const documents = await getDocs(orderRef).then((querysnapshot) => {
-        querysnapshot.forEach((doc) => {
-          console.log(doc.data());
-          doc.data().orderCart.forEach((orders)=>{
-            console.log(orders.orderTot);
-            listOrder.innerHTML += `<ul>
-            <li>
-                ${orders.title}
-            </li>
-            </ul>`
-          })
-         
-        });
-      });
-    } catch (error) {
-      console.log(error);
-      if (error.message === `Firebase: Error (auth/network-request-failed).`) {
-        connectionerror.innerHTML = "";
-        connectionerror.innerHTML = `
-        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
-        <strong>Holy guacamole!</strong> *Check Your Connection and try again 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        `;
-      }
-    }
-  } else {
-    console.log("no document found");
-  }
-});
+// onAuthStateChanged(auth, async (user) => {
+//   const orderRef = collection(colRef, user.uid, "customerOrder");
+//   const listOrder = document.querySelector(".orderCard");
+//   if (user) {
+//     try {
+//       // const orderQuery = query(orderRef, where("transactionId", "==", true));
+//       const documents = await getDocs(orderRef).then((querysnapshot) => {
+//         querysnapshot.forEach((doc) => {
+//           const formerCart = doc.data().cart;
+//           console.log(formerCart);
+//           const newCart = formerCart.slice(0, -1);
+//           console.log(newCart);
+//           const getOrderTotal = formerCart[formerCart.length - 1];
+//           console.log(getOrderTotal);
+//           const totalOrderBlk = document.querySelector('.totalOrderBlk')
+//           totalOrderBlk.innerHTML = getOrderTotal.totalOrder
+
+//           // fixing history
+
+//           const orderCard = document.querySelector(".orderCard");
+//           newCart.forEach((order) => {
+//             orderCard.innerHTML += `<ul class = "d-flex gap-4">
+//             <li>${order.title}</li>
+//             <li>x</li>
+//             <li>${order.price}</li>
+//             </ul>
+//           `;
+//           });
+//         });
+//       });
+//     } catch (error) {
+//       console.log(error);
+//       if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+//         connectionerror.innerHTML = "";
+//         connectionerror.innerHTML = `
+//         <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+//         <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+//         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+//         </div>
+//         `;
+//       }
+//     }
+//   } else {
+//     console.log("no document found");
+//   }
+// });
 
 // check out config
 const checkOut = document.querySelector(".checkOut");
@@ -187,15 +201,15 @@ checkOut.addEventListener("click", async () => {
     let totalChecked = total.innerHTML;
     const orderRef = collection(colRef, user.uid, "customerOrder");
     try {
-      cart.push(totalChecked)
-      const createDoc = await addDoc(orderRef,{
+      cart.push({ totalOrder: totalChecked });
+      const createDoc = await addDoc(orderRef, {
         cart,
         timestamp: serverTimestamp(),
-      })
+      });
     } catch (error) {
-      console.log(error, 'order error');
-    }finally{
-      alert('done')
+      console.log(error, "order error");
+    } finally {
+      alert("done");
     }
   });
 });

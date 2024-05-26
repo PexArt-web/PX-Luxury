@@ -58,4 +58,95 @@ checkOut.addEventListener('click',()=>{
   
 })
 
+/*
+payment side
+*/
+const userInput = document.querySelector(".userInput");
+userInput.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const cardnumber = document.querySelector(".cardnumber");
+  const cardexpirydate = document.querySelector(".expirydate");
+  const cvv = document.querySelector(".cvv");
+  const payBtn = document.querySelector(".paybutton");
+  payBtn.disabled = true;
+  // payBtn.innerHTML
+  if (!cardnumber.value && !cardexpirydate.value && !cvv.value) {
+    return;
+  }
+  try {
+   
+  } catch (error) {
+    console.log(error);
+  } finally {
+    let processing = document.querySelector(".processingWrapper");
+    const payStackblock = document.querySelector(".payStack");
 
+    setTimeout(()=>{
+        userInput.style.display = 'none'
+        processing.style.display = 'block'
+    }, 4000)
+
+    setTimeout(()=>{
+        processing.style.display = 'none'
+        payStackblock.style.display = 'block'
+    }, 8000)
+
+
+    payBtn.disabled = false
+    payBtn.innerHTML = `<i class="bi bi-lock-fill"></i>
+    </svg> PAY NOW
+    `;
+  }
+});
+
+
+// 
+
+// getting order details
+
+onAuthStateChanged(auth, async (user) => {
+  const orderRef = collection(colRef, user.uid, "customerOrder");
+  const listOrder = document.querySelector(".orderCard");
+  if (user) {
+    try {
+      // const orderQuery = query(orderRef, where("transactionId", "==", true));
+      const documents = await getDocs(orderRef).then((querysnapshot) => {
+        querysnapshot.forEach((doc) => {
+          const formerCart = doc.data().cart;
+          console.log(formerCart);
+          const newCart = formerCart.slice(0, -1);
+          console.log(newCart);
+          const getOrderTotal = formerCart[formerCart.length - 1];
+          console.log(getOrderTotal);
+          const totalOrderBlk = document.querySelector('.totalOrderBlk')
+          totalOrderBlk.innerHTML = getOrderTotal.totalOrder
+
+          // fixing history
+
+          const orderCard = document.querySelector(".orderCard");
+          newCart.forEach((order) => {
+            orderCard.innerHTML += `<ul class = "d-flex gap-4">
+            <li>${order.title}</li>
+            <li>x</li>
+            <li>${order.price}</li>
+            </ul>
+          `;
+          });
+        });
+      });
+    } catch (error) {
+      console.log(error);
+      if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+        connectionerror.innerHTML = "";
+        connectionerror.innerHTML = `
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
+        <strong>Holy guacamole!</strong> *Check Your Connection and try again 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        `;
+      }
+    }
+  } else {
+    console.log("no document found");
+  }
+});

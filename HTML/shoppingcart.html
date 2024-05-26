@@ -73,11 +73,14 @@
                 <li class="nav-item displayName">
                   <a class="nav-link mt-2 welcomeName" href="#" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Order History</a>
                   <div class="collapse" id="collapseExample">
-                    <div class="card orderCard card-body">
-                   <div class="d-flex justify-content-between">
-                     
-                   </div> 
+                    <div class="card card-body">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="TransactionId">
+                        <label for="floatingInput">Input Transaction Id</label>
+                      </div>
+                      <p class="totalOrderBlk"></p>
                     </div>
+                    
                 </li>
                
               </ul>

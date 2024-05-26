@@ -20,43 +20,43 @@ amountTotal.innerHTML = ''
 amountTotal.innerHTML = calculateTotalAmount.toFixed(2);
 //
 
-const userInput = document.querySelector(".userInput");
-userInput.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const cardnumber = document.querySelector(".cardnumber");
-  const cardexpirydate = document.querySelector(".expirydate");
-  const cvv = document.querySelector(".cvv");
-  const payBtn = document.querySelector(".paybutton");
-  payBtn.disabled = true;
-  // payBtn.innerHTML
-  if (!cardnumber.value && !cardexpirydate.value && !cvv.value) {
-    return;
-  }
-  try {
+// const userInput = document.querySelector(".userInput");
+// userInput.addEventListener("submit", async (e) => {
+//   e.preventDefault();
+//   const cardnumber = document.querySelector(".cardnumber");
+//   const cardexpirydate = document.querySelector(".expirydate");
+//   const cvv = document.querySelector(".cvv");
+//   const payBtn = document.querySelector(".paybutton");
+//   payBtn.disabled = true;
+//   // payBtn.innerHTML
+//   if (!cardnumber.value && !cardexpirydate.value && !cvv.value) {
+//     return;
+//   }
+//   try {
    
-  } catch (error) {
-    console.log(error);
-  } finally {
-    let processing = document.querySelector(".processingWrapper");
-    const payStackblock = document.querySelector(".payStack");
+//   } catch (error) {
+//     console.log(error);
+//   } finally {
+//     let processing = document.querySelector(".processingWrapper");
+//     const payStackblock = document.querySelector(".payStack");
 
-    // setTimeout(()=>{
-    //     userInput.style.display = 'none'
-    //     processing.style.display = 'block'
-    // }, 4000)
+//     setTimeout(()=>{
+//         userInput.style.display = 'none'
+//         processing.style.display = 'block'
+//     }, 4000)
 
-    // setTimeout(()=>{
-    //     processing.style.display = 'none'
-    //     payStackblock.style.display = 'block'
-    // }, 8000)
+//     setTimeout(()=>{
+//         processing.style.display = 'none'
+//         payStackblock.style.display = 'block'
+//     }, 8000)
 
 
-    payBtn.disabled = false
-    payBtn.innerHTML = `<i class="bi bi-lock-fill"></i>
-    </svg> PAY NOW
-    `;
-  }
-});
+//     payBtn.disabled = false
+//     payBtn.innerHTML = `<i class="bi bi-lock-fill"></i>
+//     </svg> PAY NOW
+//     `;
+//   }
+// });
 
 let backtoshipping = document.querySelector('.backToluxuryshipping')
 backtoshipping.style.cursor = 'pointer'

@@ -11,6 +11,7 @@ import {
   getDocs,
   updateDoc,
   where,
+  serverTimestamp,
   query,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 const firebaseConfig = {
@@ -35,7 +36,7 @@ const stackEmail = document.querySelector(".stackemail");
 let stackAmount = document.querySelector(".stackAmount");
 const stackFirstname = document.querySelector(".stackFirstname");
 const stackLastname = document.querySelector(".stackLastname");
-let transactionStatus = 'Order completed'
+// let transactionStatus = "Order completed";
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -100,24 +101,42 @@ function payWithPaystack(e) {
 }
 
 // to update document
-
+const cardnumber = document.querySelector(".cardnumber");
+const cardexpirydate = document.querySelector(".expirydate");
+const cvv = document.querySelector(".cvv");
+const payBtn = document.querySelector(".paybutton");
 const userInput = document.querySelector(".userInput");
 userInput.addEventListener("submit", async (e) => {
-  const orderQuery = query(orderRef, where("transactionId", "==", true));
+  e.preventDefault();
   onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const querydocument = await getDocs(orderQuery).then((querysnapshot) => {
-        querysnapshot.forEach((document) => {
-          console.log(document.data(), "==", document.id);
-          // const statuQuery = await updateDoc
-          async function querystatus() {
-            const orderDocRef = doc(orderRef, doc.id);
-            const statusQuery = await updateDoc(orderDocRef, {
-              transactionStatus,
-            });
-          }
-        });
-      });
+    const orderRef = collection(colRef, user.uid, "customerOrder");
+    if (!user) {
+      return;
+    }
+    if (!cardnumber.value && !cvv.value && !cardexpirydate.value) {
+      return;
+    }
+    payBtn.disabled = true;
+    try {
+      const orderDoc = await getDocs(orderRef).then((querysnapshot)=>{
+        querysnapshot.forEach((documentS)=>{
+            console.log(documentS.data(), '==>', documentS.id);
+            let transactionId = documentS.id
+            async function  updateTransactionId() {
+             try {
+              const updatetransactionId = await updateDoc(orderRef,{
+                transactionId
+              })
+              console.log(transactionId);
+             } catch (error) {
+              console.log('transactionid error:', error);
+             } 
+            }
+        })
+      })
+   
+    } catch (error) {
+      console.log(error);
     }
   });
 });
