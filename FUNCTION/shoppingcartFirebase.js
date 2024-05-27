@@ -9,6 +9,7 @@ import {
 import {
   getFirestore,
   doc,
+  updateDoc,
   collection,
   getDoc,
   addDoc,
@@ -198,6 +199,7 @@ checkOut.addEventListener("click", async () => {
       }, 3000);
       return;
     }
+    localStorage.setItem('totalPrice', calculateTotalPrice())
     let totalChecked = total.innerHTML;
     const orderRef = collection(colRef, user.uid, "customerOrder");
     try {
@@ -206,10 +208,20 @@ checkOut.addEventListener("click", async () => {
         cart,
         timestamp: serverTimestamp(),
       });
+      console.log(createDoc.id);
+      const orderDocRef = doc(colRef, user.uid, 'customerOrder', createDoc.id)
+      let transactionId = createDoc.id
+      let transactionStatus = "Order in progress or canceled";
+      const updatetransactionId = await updateDoc(orderDocRef,{
+        transactionId,
+        transactionStatus
+      })
+      console.log(transactionId);
+     
     } catch (error) {
       console.log(error, "order error");
     } finally {
-      alert("done");
+      // window.location.href = "../HTML/luxuryshipping.html";
     }
   });
 });

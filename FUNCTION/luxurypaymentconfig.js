@@ -26,8 +26,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 const colRef = collection(db, "users");
-const orderRef = collection(db, "customerOrder");
-// const orderDocRef = doc(colRef, "customerOrder")
 
 //
 const email = document.querySelector(".email");
@@ -36,7 +34,6 @@ const stackEmail = document.querySelector(".stackemail");
 let stackAmount = document.querySelector(".stackAmount");
 const stackFirstname = document.querySelector(".stackFirstname");
 const stackLastname = document.querySelector(".stackLastname");
-// let transactionStatus = "Order completed";
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -95,6 +92,12 @@ function payWithPaystack(e) {
       processed.style.display = "block";
       // clear storage
       localStorage.clear();
+      console.log(response.message, 'response');
+
+      if (response.message == 'Approved') {
+        alert(true,'carry on')
+      }
+      
     },
   });
   handler.openIframe();
@@ -110,6 +113,7 @@ userInput.addEventListener("submit", async (e) => {
   e.preventDefault();
   onAuthStateChanged(auth, async (user) => {
     const orderRef = collection(colRef, user.uid, "customerOrder");
+    
     if (!user) {
       return;
     }
@@ -123,20 +127,42 @@ userInput.addEventListener("submit", async (e) => {
             console.log(documentS.data(), '==>', documentS.id);
             let transactionId = documentS.id
             async function  updateTransactionId() {
+              const orderDocRef = doc(colRef, user.uid, 'customerOrder', documentS.id)
+              let transactionStatus = "Order in progress or canceled";
              try {
-              const updatetransactionId = await updateDoc(orderRef,{
-                transactionId
+              const updatetransactionId = await updateDoc(orderDocRef,{
+                transactionId,
+                transactionStatus
               })
               console.log(transactionId);
              } catch (error) {
               console.log('transactionid error:', error);
              } 
             }
+            updateTransactionId()
         })
-      })
-   
+      })   
     } catch (error) {
       console.log(error);
+    }finally{
+      let processing = document.querySelector(".processingWrapper");
+    const payStackblock = document.querySelector(".payStack");
+
+    setTimeout(()=>{
+        userInput.style.display = 'none'
+        processing.style.display = 'block'
+    }, 4000)
+
+    setTimeout(()=>{
+        processing.style.display = 'none'
+        payStackblock.style.display = 'block'
+    }, 8000)
+
+
+    payBtn.disabled = false
+    payBtn.innerHTML = `<i class="bi bi-lock-fill"></i>
+    </svg> PAY NOW
+    `;
     }
   });
 });
