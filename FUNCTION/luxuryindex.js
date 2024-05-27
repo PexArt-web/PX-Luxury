@@ -135,20 +135,18 @@ firstDisplay.forEach((display) => {
    `;
 });
 
-
-const eyeOpen = document.querySelector('.eyeOpen')
-const eyeClose = document.querySelector('.eyeClose')
-eyeClose.style.display = 'none'
-eyeOpen.addEventListener('click',()=>{
-  const password = document.querySelector('.password')
-  password.setAttribute('type','text')
-  eyeOpen.style.display = 'none'
-  eyeClose.style.display = 'block'
-  
-})
-eyeClose.addEventListener('click',()=>{
-  const password = document.querySelector('.password')
-  password.setAttribute('type','password')
-  eyeClose.style.display = 'none'
-  eyeOpen.style.display = 'block'
-})
+const eyeOpen = document.querySelector(".eyeOpen");
+const eyeClose = document.querySelector(".eyeClose");
+eyeClose.style.display = "none";
+eyeOpen.addEventListener("click", () => {
+  const password = document.querySelector(".password");
+  password.setAttribute("type", "text");
+  eyeOpen.style.display = "none";
+  eyeClose.style.display = "block";
+});
+eyeClose.addEventListener("click", () => {
+  const password = document.querySelector(".password");
+  password.setAttribute("type", "password");
+  eyeClose.style.display = "none";
+  eyeOpen.style.display = "block";
+});

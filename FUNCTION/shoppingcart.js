@@ -1307,6 +1307,9 @@ calculateTotalPrice()
 
 addtoCart = (id) =>{
  product.forEach((elem)=>{
+  // 
+  // code to sort out same products before pushing
+
   // if (elem.id == id){
   //   if(cart.some((cartItem)=> cartItem.id === elem.id)){
   //   }else if (!cart.some((cartItem)=> cartItem === elem.id)) {
@@ -1315,6 +1318,7 @@ addtoCart = (id) =>{
   //     cartLength.innerHTML = cart.length
   //   }
   // }
+  // 
 
   if(elem.id == id){
     cart.push(elem)
@@ -1383,30 +1387,6 @@ emptyCart.addEventListener('click',()=>{
   displayCartProduct()
 
 })
-
-// const checkOut = document.querySelector('.checkOut')
-// checkOut.addEventListener('click',()=>{
-//   const emptyCartAlert = document.querySelector('.emptycartalert')  
-//   if (cart.length !== 0) {
-//     localStorage.removeItem('totalPrice')
-//     localStorage.setItem('totalPrice', calculateTotalPrice())
-//     window.location.href = "../HTML/luxuryshipping.html";
-//   }else{
-//     emptyCartAlert.innerHTML = ''
-//     emptyCartAlert.innerHTML = `
-//     <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-//     <strong>Hello! Your cart is empty</strong> 
-//     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-//   </div>
-//     `
-//     setTimeout(()=>{
-//       emptyCartAlert.innerHTML = ''
-//     },3000)
-//   }
-
-  
-  
-// })
 
 function cate(ev) {
   const showProduct = document.querySelector(".products");

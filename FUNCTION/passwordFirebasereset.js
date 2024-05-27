@@ -9,14 +9,12 @@ const firebaseConfig = {
   projectId: "px-luxury-289ba",
   storageBucket: "px-luxury-289ba.appspot.com",
   messagingSenderId: "1091968351878",
-  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07"
+  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07",
 };
 
-
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth();
-const connectionerror = document.querySelector('.connection_error')
+const connectionerror = document.querySelector(".connection_error");
 let resetPassword = document.getElementById("reset");
 resetPassword.addEventListener("click", async (e) => {
   e.preventDefault(e);
@@ -33,11 +31,12 @@ resetPassword.addEventListener("click", async (e) => {
         verify_sent.innerHTML = `<div class="alert alert-secondary alert-dismissible fade show" role="alert">
         An email has been sent, Please check Your Email to reset Your password
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>`
-    
+      </div>`;
       })
       .catch((error) => {
-        if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+        if (
+          error.message === `Firebase: Error (auth/network-request-failed).`
+        ) {
           connectionerror.innerHTML = "";
           connectionerror.innerHTML = `
           <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >

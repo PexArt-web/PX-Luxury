@@ -9,14 +9,9 @@ import {
 import {
   getFirestore,
   doc,
-  updateDoc,
   collection,
   getDoc,
   addDoc,
-  getDocs,
-  query,
-  serverTimestamp,
-  where,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 import {
   getStorage,
@@ -44,14 +39,11 @@ const db = getFirestore(app);
 const auth = getAuth();
 const colRef = collection(db, "users");
 const storage = getStorage();
-// const orderRef = collection(db, "customerOrder");
-const transactionId = true;
 const connectionerror = document.querySelector(".connection_error");
 
 // getting profile details
 onAuthStateChanged(auth, async (user) => {
   const docRef = doc(colRef, user.uid, "usersDetails", "profileDetails");
-  const orderRef = doc(colRef, user.uid, "userDetails", "customerOrder");
   const userRef = ref(storage, `images/${user.uid}`);
   const imageRef = ref(userRef, "profile-image.jpg");
   const docSnap = await getDoc(docRef);
@@ -125,60 +117,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-
-
-
-// GETTING ORDER LIST HAS BEEN TRANSFERRED TO PAYMENT SECTION TO GENERATE ID
-
-// getting order details
-
-// onAuthStateChanged(auth, async (user) => {
-//   const orderRef = collection(colRef, user.uid, "customerOrder");
-//   const listOrder = document.querySelector(".orderCard");
-//   if (user) {
-//     try {
-//       // const orderQuery = query(orderRef, where("transactionId", "==", true));
-//       const documents = await getDocs(orderRef).then((querysnapshot) => {
-//         querysnapshot.forEach((doc) => {
-//           const formerCart = doc.data().cart;
-//           console.log(formerCart);
-//           const newCart = formerCart.slice(0, -1);
-//           console.log(newCart);
-//           const getOrderTotal = formerCart[formerCart.length - 1];
-//           console.log(getOrderTotal);
-//           const totalOrderBlk = document.querySelector('.totalOrderBlk')
-//           totalOrderBlk.innerHTML = getOrderTotal.totalOrder
-
-//           // fixing history
-
-//           const orderCard = document.querySelector(".orderCard");
-//           newCart.forEach((order) => {
-//             orderCard.innerHTML += `<ul class = "d-flex gap-4">
-//             <li>${order.title}</li>
-//             <li>x</li>
-//             <li>${order.price}</li>
-//             </ul>
-//           `;
-//           });
-//         });
-//       });
-//     } catch (error) {
-//       console.log(error);
-//       if (error.message === `Firebase: Error (auth/network-request-failed).`) {
-//         connectionerror.innerHTML = "";
-//         connectionerror.innerHTML = `
-//         <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
-//         <strong>Holy guacamole!</strong> *Check Your Connection and try again 
-//         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-//         </div>
-//         `;
-//       }
-//     }
-//   } else {
-//     console.log("no document found");
-//   }
-// });
-
 // check out config
 const checkOut = document.querySelector(".checkOut");
 const emptyCartAlert = document.querySelector(".emptycartalert");
@@ -199,7 +137,7 @@ checkOut.addEventListener("click", async () => {
       }, 3000);
       return;
     }
-    localStorage.setItem('totalPrice', calculateTotalPrice())
+    localStorage.setItem("totalPrice", calculateTotalPrice());
     let totalChecked = total.innerHTML;
     const orderRef = collection(colRef, user.uid, "customerOrder");
     let transactionStatus = "Order in progress or canceled";
@@ -208,13 +146,12 @@ checkOut.addEventListener("click", async () => {
       const createDoc = await addDoc(orderRef, {
         cart,
         transactionStatus,
-        timestamp: serverTimestamp(),
       });
-      localStorage.setItem('document#', createDoc.id)
+      localStorage.setItem("document#", createDoc.id);
     } catch (error) {
       console.log(error, "order error");
     } finally {
-      // window.location.href = "../HTML/luxuryshipping.html";
+      window.location.href = "../HTML/luxuryshipping.html";
     }
   });
 });

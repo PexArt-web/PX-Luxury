@@ -16,7 +16,7 @@ const firebaseConfig = {
   projectId: "px-luxury-289ba",
   storageBucket: "px-luxury-289ba.appspot.com",
   messagingSenderId: "1091968351878",
-  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07"
+  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07",
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
@@ -39,8 +39,8 @@ onAuthStateChanged(auth, async (user) => {
         lName.value = getNewDoc.data().lastname.toUpperCase();
       }
     } catch (error) {
-      if(error.message === `Firebase: Error (auth/network-request-failed).`){
-        const ConnectionError = document.querySelector('.connection_error')
+      if (error.message === `Firebase: Error (auth/network-request-failed).`) {
+        const ConnectionError = document.querySelector(".connection_error");
         ConnectionError.innerHTML = "";
         ConnectionError.innerHTML = `
           <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
@@ -85,8 +85,8 @@ onAuthStateChanged(auth, async (user) => {
         });
       } catch (error) {
         console.log(error);
-        if(error.message == `Firebase: Error (auth/network-request-failed).`){
-          const ConnectionError = document.querySelector('.connection_error')
+        if (error.message == `Firebase: Error (auth/network-request-failed).`) {
+          const ConnectionError = document.querySelector(".connection_error");
           ConnectionError.innerHTML = "";
           ConnectionError.innerHTML = `
             <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" >
@@ -103,4 +103,3 @@ onAuthStateChanged(auth, async (user) => {
     });
   }
 });
-

@@ -8,11 +8,8 @@ import {
   doc,
   collection,
   getDoc,
-  getDocs,
   updateDoc,
-  where,
   serverTimestamp,
-  query,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDoL0BI-a7Y5TiHzwaWbjwgBKahpV7azpU",
@@ -109,7 +106,6 @@ userInput.addEventListener("submit", async (e) => {
   });
 });
 
-
 //
 const payStackform = document.querySelector(".payStack");
 payStackform.addEventListener("submit", payWithPaystack, false);
@@ -134,7 +130,7 @@ function payWithPaystack(e) {
 
       console.log(response.message, "response");
 
-        // to update document
+      // to update document
       if (response.message == "Approved") {
         onAuthStateChanged(auth, async (user) => {
           let transactionId = localStorage.getItem("document#");
@@ -148,17 +144,15 @@ function payWithPaystack(e) {
           const updateTransactionId = await updateDoc(orderDocRef, {
             transactionId,
             transactionStatus,
+            timestamp: serverTimestamp(),
           });
           // clear storage
           localStorage.clear();
         });
       }
       alert(response.message);
-
-      
     },
   });
-  
+
   handler.openIframe();
 }
-
