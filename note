@@ -150,3 +150,19 @@ onAuthStateChanged(auth, async (user) => {
     console.log("no document found");
   }
 });
+// 
+let transactionId = localStorage.getItem('document#')
+            async function  updateTransactionId() {
+              const orderDocRef = doc(colRef, user.uid, 'customerOrder', transactionId)
+              let transactionStatus = "Order in progress or canceled";
+             try {
+              const updatetransactionId = await updateDoc(orderDocRef,{
+                transactionId,
+                transactionStatus
+              })
+              console.log(transactionId, 'transact storage');
+             } catch (error) {
+              console.log('transactionid error:', error);
+             } 
+            }
+            updateTransactionId()

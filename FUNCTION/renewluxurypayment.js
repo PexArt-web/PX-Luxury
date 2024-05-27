@@ -3,7 +3,7 @@ const subtotal_amount = Number(localStorage.getItem("totalPrice"));
 const subtotal = document.querySelector(".subTotal");
 subtotal.innerHTML = subtotal_amount.toFixed(2);
 
-// calculate V.A.T
+// calculate V.A.T             
 
 const vatPercent = document.querySelector(".vatax");
 

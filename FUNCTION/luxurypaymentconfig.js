@@ -69,41 +69,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-//
-const payStack = document.querySelector(".payStack");
-payStack.addEventListener("submit", payWithPaystack, false);
-function payWithPaystack(e) {
-  e.preventDefault();
-  let handler = PaystackPop.setup({
-    key: "pk_test_bb3514eaf08a35c25e2d8d0a8c887d391362661d",
-    email: stackEmail.value,
-    amount: stackAmount.value * 100,
-    ref: "" + Math.floor(Math.random() * 1000000000 + 1),
-    //
-    onclose: function () {
-      alert("window closed");
-    },
-    callback: function (response) {
-      let message = "Payment complete! Reference: " + response.reference;
-      const payStackWrap = document.querySelector(".payStack");
-      payStackWrap.style.display = "none";
-      //
-      const processed = document.querySelector(".processed");
-      processed.style.display = "block";
-      // clear storage
-      localStorage.clear();
-      console.log(response.message, 'response');
-
-      if (response.message == 'Approved') {
-        alert(true,'carry on')
-      }
-      
-    },
-  });
-  handler.openIframe();
-}
-
-// to update document
+// userInput
 const cardnumber = document.querySelector(".cardnumber");
 const cardexpirydate = document.querySelector(".expirydate");
 const cvv = document.querySelector(".cvv");
@@ -112,8 +78,6 @@ const userInput = document.querySelector(".userInput");
 userInput.addEventListener("submit", async (e) => {
   e.preventDefault();
   onAuthStateChanged(auth, async (user) => {
-    const orderRef = collection(colRef, user.uid, "customerOrder");
-    
     if (!user) {
       return;
     }
@@ -122,47 +86,79 @@ userInput.addEventListener("submit", async (e) => {
     }
     payBtn.disabled = true;
     try {
-      const orderDoc = await getDocs(orderRef).then((querysnapshot)=>{
-        querysnapshot.forEach((documentS)=>{
-            console.log(documentS.data(), '==>', documentS.id);
-            let transactionId = documentS.id
-            async function  updateTransactionId() {
-              const orderDocRef = doc(colRef, user.uid, 'customerOrder', documentS.id)
-              let transactionStatus = "Order in progress or canceled";
-             try {
-              const updatetransactionId = await updateDoc(orderDocRef,{
-                transactionId,
-                transactionStatus
-              })
-              console.log(transactionId);
-             } catch (error) {
-              console.log('transactionid error:', error);
-             } 
-            }
-            updateTransactionId()
-        })
-      })   
-    } catch (error) {
-      console.log(error);
-    }finally{
       let processing = document.querySelector(".processingWrapper");
-    const payStackblock = document.querySelector(".payStack");
+      const payStackblock = document.querySelector(".payStack");
 
-    setTimeout(()=>{
-        userInput.style.display = 'none'
-        processing.style.display = 'block'
-    }, 4000)
+      setTimeout(() => {
+        userInput.style.display = "none";
+        processing.style.display = "block";
+      }, 4000);
 
-    setTimeout(()=>{
-        processing.style.display = 'none'
-        payStackblock.style.display = 'block'
-    }, 8000)
-
-
-    payBtn.disabled = false
-    payBtn.innerHTML = `<i class="bi bi-lock-fill"></i>
+      setTimeout(() => {
+        processing.style.display = "none";
+        payStackblock.style.display = "block";
+      }, 8000);
+    } catch (error) {
+      console.log(error, "updating error");
+    } finally {
+      payBtn.disabled = false;
+      payBtn.innerHTML = `<i class="bi bi-lock-fill"></i>
     </svg> PAY NOW
     `;
     }
   });
 });
+
+
+//
+const payStackform = document.querySelector(".payStack");
+payStackform.addEventListener("submit", payWithPaystack, false);
+function payWithPaystack(e) {
+  e.preventDefault();
+  let handler = PaystackPop.setup({
+    key: "pk_test_bb3514eaf08a35c25e2d8d0a8c887d391362661d",
+    email: stackEmail.value,
+    amount: parseInt(stackAmount.value) * 100,
+    ref: "" + Math.floor(Math.random() * 1000000000 + 1),
+    //
+    onclose: function () {
+      alert("Transaction was not completed, window closed");
+    },
+    callback: function (response) {
+      let message = "Payment complete! Reference: " + response.reference;
+      const payStackWrap = document.querySelector(".payStack");
+      payStackWrap.style.display = "none";
+      //
+      const processed = document.querySelector(".processed");
+      processed.style.display = "block";
+
+      console.log(response.message, "response");
+
+        // to update document
+      if (response.message == "Approved") {
+        onAuthStateChanged(auth, async (user) => {
+          let transactionId = localStorage.getItem("document#");
+          const orderDocRef = doc(
+            colRef,
+            user.uid,
+            "customerOrder",
+            transactionId
+          );
+          let transactionStatus = "Order completed and will be shipped soon";
+          const updateTransactionId = await updateDoc(orderDocRef, {
+            transactionId,
+            transactionStatus,
+          });
+          // clear storage
+          localStorage.clear();
+        });
+      }
+      alert(response.message);
+
+      
+    },
+  });
+  
+  handler.openIframe();
+}
+

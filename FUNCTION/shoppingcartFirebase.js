@@ -202,22 +202,15 @@ checkOut.addEventListener("click", async () => {
     localStorage.setItem('totalPrice', calculateTotalPrice())
     let totalChecked = total.innerHTML;
     const orderRef = collection(colRef, user.uid, "customerOrder");
+    let transactionStatus = "Order in progress or canceled";
     try {
       cart.push({ totalOrder: totalChecked });
       const createDoc = await addDoc(orderRef, {
         cart,
+        transactionStatus,
         timestamp: serverTimestamp(),
       });
-      console.log(createDoc.id);
-      const orderDocRef = doc(colRef, user.uid, 'customerOrder', createDoc.id)
-      let transactionId = createDoc.id
-      let transactionStatus = "Order in progress or canceled";
-      const updatetransactionId = await updateDoc(orderDocRef,{
-        transactionId,
-        transactionStatus
-      })
-      console.log(transactionId);
-     
+      localStorage.setItem('document#', createDoc.id)
     } catch (error) {
       console.log(error, "order error");
     } finally {
