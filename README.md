@@ -40,6 +40,6 @@ This project is licensed under the GNU General Public License (GPL).
 **#Contact**
 **Email**: pexart74@gmail.com 
 **LinkedIn**: https://www.linkedin.com/in/pelumi-adeayo-09a1a5315/
-**TWitter**: https://x.com/The_realpex
+**Twitter**: https://x.com/The_realpex
 **Whatsapp**: https://wa.link/davi1q
 Thank you for checking out this E-Commerce Project! We hope you find it useful and welcome your feedback and contributions.
