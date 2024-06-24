@@ -7,7 +7,6 @@ const product = [
     title: `Men's loose fit harem pants`,
     image:
       "https://i.etsystatic.com/45486296/r/il/0d17a1/5695012610/il_794xN.5695012610_mt7v.jpg",
-    price: 45.05,
     discription: `Discover the perfect blend of style and comfort with our Cotton Linen Harem Pants for men. These Elastic Waist Streetwear Joggers are a must-have addition to your 2024 fashion collection. Crafted with care, these New Baggy Drop-crotch Pants are designed to provide the utmost comfort while keeping you in vogue.
     
         Our Casual Trousers for Men are the epitome of trendy urban fashion. Their loose fit and cotton linen blend fabric offer both style and breathability. These pants are ideal whether strolling through the city or lounging at home.

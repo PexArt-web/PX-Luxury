@@ -22,14 +22,7 @@ import {
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDoL0BI-a7Y5TiHzwaWbjwgBKahpV7azpU",
-  authDomain: "px-luxury-289ba.firebaseapp.com",
-  projectId: "px-luxury-289ba",
-  storageBucket: "px-luxury-289ba.appspot.com",
-  messagingSenderId: "1091968351878",
-  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07",
-};
+import { firebaseConfig } from "../config/config.js";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

@@ -1,3 +1,5 @@
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import {
   getAuth,
@@ -11,19 +13,13 @@ import {
   updateDoc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyDoL0BI-a7Y5TiHzwaWbjwgBKahpV7azpU",
-  authDomain: "px-luxury-289ba.firebaseapp.com",
-  projectId: "px-luxury-289ba",
-  storageBucket: "px-luxury-289ba.appspot.com",
-  messagingSenderId: "1091968351878",
-  appId: "1:1091968351878:web:dbb11496b81afa7d7edb07",
-};
+import { firebaseConfig } from "../config/config.js";
+import { unlock } from "../config/config.js";
+import { blueEmail } from "../config/config.js";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 const colRef = collection(db, "users");
-
 //
 const email = document.querySelector(".email");
 const paymentcardname = document.querySelector(".cardname");
@@ -112,7 +108,7 @@ payStackform.addEventListener("submit", payWithPaystack, false);
 function payWithPaystack(e) {
   e.preventDefault();
   let handler = PaystackPop.setup({
-    key: "pk_test_bb3514eaf08a35c25e2d8d0a8c887d391362661d",
+    key: unlock,
     email: stackEmail.value,
     amount: parseInt(stackAmount.value) * 100,
     ref: "" + Math.floor(Math.random() * 1000000000 + 1),
@@ -146,8 +142,31 @@ function payWithPaystack(e) {
             transactionStatus,
             timestamp: serverTimestamp(),
           });
+
+          //send in blue email
+          function sendEmail() {
+            let emailData = {
+              sender: { name: "PX Luxury", email: "pelumiadeayo72@gmail.com" },
+              to: [{ email: "pexart74@gmail.com", name: "Pelumi" }],
+              subject: "Your Order Confirmation",
+              htmlContent:
+                "<html><body><h1>Thank you for your order </h1></body></html>",
+            };
+            fetch("https://api.sendinblue.com/v3/smtp/email", {
+              method: "Post",
+              headers: {
+                "Content-Type": "application/json",
+                "api-key": blueEmail ,
+              },
+              body: JSON.stringify(emailData)
+            })
+              .then((feed) => feed.json())
+              .then((data) => console.log("email sent:", data))
+              .catch((error) => console.log("error sending email:", error));
+          }
+
           // clear storage
-          localStorage.clear();
+          // localStorage.clear();
         });
       }
       alert(response.message);
