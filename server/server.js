@@ -10,12 +10,12 @@ const port = 3000; // Choose your port
 
 app.use(bodyParser.json());
 
-// Sendinblue API Key
-const apiKey = '';
+// Sendinblue login
+const login = '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';
 
 // Configure Sendinblue client
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
-defaultClient.authentications['api-key'].apiKey = apiKey;
+defaultClient.authentications['api-key'].apiKey = login;
 
 // Define Sendinblue API instance
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
