@@ -31,13 +31,16 @@ To get a local copy up and running, follow these simple steps:
 firebase init
 firebase deployOpen the provided URL to view your deployed application.
 
-**#Contributions**
+## Contributions
+
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:Fork the project.Create your feature branch (git checkout -b feature/AmazingFeature).Commit your changes (git commit -m 'Add some AmazingFeature').Push to the branch (git push origin feature/AmazingFeature).Open a pull request. 
 
-**#License**
+## License
+
 This project is licensed under the GNU General Public License (GPL).
 
-**#Contact**
+## Contact
+
 **Email**: pexart74@gmail.com 
 **LinkedIn**: https://www.linkedin.com/in/pelumi-adeayo-09a1a5315/
 **Twitter**: https://x.com/The_realpex

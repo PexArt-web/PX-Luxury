@@ -43,9 +43,6 @@ marquee span{
     overflow-x: hidden;
     max-height: 90vh;
 }
-.logoImg{
-    height: 37px;
-}
 .offcanvas{
     height: 85vh;
 }
@@ -114,6 +111,9 @@ body{
     height: 10vh;
     width: 10vw;
 }
+.foot--icons{
+    font-size: 30px;
+}
 .orderCard{
     text-align: justify;
 }
@@ -147,3 +147,4 @@ body{
       opacity: 1;
     }
   } */
+   

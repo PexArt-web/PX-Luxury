@@ -117,7 +117,6 @@ const total = document.querySelector(".total");
 checkOut.addEventListener("click", async () => {
   onAuthStateChanged(auth, async (user) => {
     if (cart.length == 0) {
-      alert("returned");
       emptyCartAlert.innerHTML = "";
       emptyCartAlert.innerHTML = `
       <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">

@@ -15,7 +15,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 import { firebaseConfig } from "../config/config.js";
 import { unlock } from "../config/config.js";
-import { blueEmail } from "../config/config.js";
+import {elastic } from "../config/config.js";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
@@ -79,18 +79,9 @@ userInput.addEventListener("submit", async (e) => {
     }
     payBtn.disabled = true;
     try {
-      let processing = document.querySelector(".processingWrapper");
       const payStackblock = document.querySelector(".payStack");
-
-      setTimeout(() => {
-        userInput.style.display = "none";
-        processing.style.display = "block";
-      }, 4000);
-
-      setTimeout(() => {
-        processing.style.display = "none";
-        payStackblock.style.display = "block";
-      }, 8000);
+      userInput.style.display = "none"
+      payStackblock.style.display = "block"
     } catch (error) {
       console.log(error, "updating error");
     } finally {
@@ -144,32 +135,45 @@ function payWithPaystack(e) {
           });
 
           //send in blue email
-          function sendEmail() {
-            let emailData = {
-              sender: { name: "PX Luxury", email: "pelumiadeayo72@gmail.com" },
-              to: [{ email: "pexart74@gmail.com", name: "Pelumi" }],
-              subject: "Your Order Confirmation",
-              htmlContent:
-                "<html><body><h1>Thank you for your order </h1></body></html>",
+          async function sendEmail() {
+            const emailData = {
+                toEmail: 'pelumiadeayo72@gmail.com',
+                subject: 'Order details',
+                htmlContent: '<p>Your HTML content here</p>'
             };
-            fetch("https://api.sendinblue.com/v3/smtp/email", {
-              method: "Post",
-              headers: {
-                "Content-Type": "application/json",
-                "api-key": blueEmail ,
-              },
-              body: JSON.stringify(emailData)
+
+            try {
+              const resp = await fetch('http://localhost:3000/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(emailData)
             })
-              .then((feed) => feed.json())
-              .then((data) => console.log("email sent:", data))
-              .catch((error) => console.log("error sending email:", error));
-          }
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log('Email sent successfully');
+                // Handle success
+            })
+            .catch(error => {
+                console.error('Error sending email:', error);
+                // Handle error
+            })
+            } catch (error) {
+              console.log(error);
+            }
+        
+          
+        }
+        sendEmail()
+          
 
           // clear storage
-          // localStorage.clear();
+          localStorage.clear();
         });
       }
-      alert(response.message);
     },
   });
 

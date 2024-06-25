@@ -1,0 +1,20 @@
+{
+  "name": "e-comerce",
+  "version": "1.0.0",
+  "description": "Welcome to Pelumi Adeayo  E-Commerce Project! This repository contains the source code and resources for our online store built with HTML, CSS, JavaScript, Firebase, Bootstrap, SendGrid, Paystack, and licensed under the GNU General Public License (GPL).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2",
+    "sendinblue-api": "^1.0.8"
+  }
+}
