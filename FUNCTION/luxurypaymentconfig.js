@@ -134,7 +134,7 @@ function payWithPaystack(e) {
             timestamp: serverTimestamp(),
           });
 
-          //send in blue email
+          //for future email notification adjustment and update
           async function sendEmail() {
             const emailData = {
                 toEmail: 'pelumiadeayo72@gmail.com',
