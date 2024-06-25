@@ -19,6 +19,19 @@ Welcome to Pelumi Adeayo  E-Commerce Project! This repository contains the sourc
 - *Payment Integration*: Paystack
 - *Email Integration*: SendGrid for sending transactional emails
 
+# E-commerce Project
+
+This repository contains the frontend code for an e-commerce project. Currently, the Gmail or email sending system integration is not implemented. However, I plan to enhance this project significantly in the future using frameworks like React or other technologies.
+
+## Future Plans
+
+- *Framework Upgrade:* I intend to rebuild this project using modern frameworks such as React to improve scalability, performance, and maintainability.
+  
+- *Email Integration:* Implementing a robust email sending system will be a priority in future updates to enhance communication functionalities.
+- And any other functionality in future
+
+
+
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps:
