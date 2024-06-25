@@ -1,6 +1,6 @@
 # E-Commerce Project
 
-Welcome to Pelumi Adeayo  E-Commerce Project! This repository contains the source code and resources for our online store built with HTML, CSS, JavaScript, Firebase, Bootstrap, SendGrid, Paystack, and licensed under the GNU General Public License (GPL).
+Welcome to Pelumi Adeayo  E-Commerce Project! This repository contains the source code and resources for our online store built with HTML, CSS, JavaScript, Firebase, Bootstrap, Paystack, and licensed under the GNU General Public License (GPL).
 
 ## Features
 
@@ -9,19 +9,16 @@ Welcome to Pelumi Adeayo  E-Commerce Project! This repository contains the sourc
 - *Shopping Cart*: Add products to your cart and proceed to checkout seamlessly.
 - *Order Management*: Track your orders and manage them efficiently.
 - *Payment Integration*: Accept payments securely with Paystack.
-- *Email Notifications*: Utilizes SendGrid for sending order confirmations and updates.
+- *Email Notifications*: the Gmail or email sending system integration is not implemented. However, I plan to enhance this project significantly in the future using frameworks like React or other technologies.
 - *Responsive Design*: Optimized for various devices using Bootstrap.
+
 
 ## Technologies Used
 
 - *Frontend*: HTML, CSS, JavaScript, Bootstrap
 - *Backend and Database*: Firebase (Authentication, Realtime Database)
 - *Payment Integration*: Paystack
-- *Email Integration*: SendGrid for sending transactional emails
-
-# E-commerce Project
-
-This repository contains the frontend code for an e-commerce project. Currently, the Gmail or email sending system integration is not implemented. However, I plan to enhance this project significantly in the future using frameworks like React or other technologies.
+- *Email Integration*: coming soon...
 
 ## Future Plans
 
