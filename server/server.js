@@ -4,13 +4,14 @@ const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const SibApiV3Sdk = require('sendinblue-api');
 
+
 const app = express();
 const port = 3000; // Choose your port
 
 app.use(bodyParser.json());
 
 // Sendinblue API Key
-const apiKey = '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';
+const apiKey = '';
 
 // Configure Sendinblue client
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
